@@ -5,6 +5,7 @@ const authRoutes = require('./routers/authRouters');
 const followRoutes = require('./routers/followRouters');
 const userRoutes = require('./routers/userRouters');
 const posts = require('./routers/postRouters');
+const community = require('./routers/communityRouters');
 
 const PORT = process.env.PORT || 5000;
 
@@ -15,6 +16,7 @@ app.use('/auth', authRoutes);
 app.use('/follow', followRoutes);
 app.use('/users', userRoutes);
 app.use('/posts', posts);
+app.use('/community', community);
 
 const start = async () => {
   try {
