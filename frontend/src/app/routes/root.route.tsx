@@ -1,7 +1,7 @@
 import App from "@app/App";
 import { createBrowserRouter } from "react-router-dom";
 import { Routes } from "./root.types";
-import { HomePage, LoginPage } from "./root.lazy";
+import { CommunityPage, LoginPage } from "./root.lazy";
 
 export const routes = createBrowserRouter([
   {
@@ -9,7 +9,7 @@ export const routes = createBrowserRouter([
     children: [
       {
         path: Routes.Home,
-        element: <HomePage />
+        element: <CommunityPage />
       },
       {
         path: Routes.Login,

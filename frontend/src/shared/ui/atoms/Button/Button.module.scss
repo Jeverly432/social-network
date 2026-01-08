@@ -1,0 +1,67 @@
+@use '@shared/styles/fonts' as *;
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+
+.button {
+  font-family: $font_inter;
+
+  &.primary {
+    background-color: $primary;
+    color: $base_inverse;
+    border: $primary;
+
+    &:hover {
+      background-color: $base_inverse !important;
+      color: $primary !important;
+      border-color: $primary !important;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+
+  &.secondary {
+    border-color: $base_shade3;
+    color: $secondary;
+    background-color: $base_inverse;
+
+    &:hover {
+      background-color: $base_inverse !important;
+      color: $primary !important;
+      border-color: $primary !important;
+    }
+  }
+
+  &.inverse {
+    background-color: unset;
+    border-color: $base_inverse !important;
+    color: $base_inverse !important;
+  }
+
+  &.l {
+    gap: 8px;
+    padding: 10px 16px;
+    height: 40px;
+    @include typography-body-bold;
+    border-radius: 8px;
+
+    &.isIcon {
+      padding: 10px !important;
+    }
+  }
+
+  &.s {
+    gap: 4px;
+    height: 28px;
+    padding: 5px 8px;
+    @include typography-caption-bold;
+    border-radius: 6px;
+
+    &.isIcon {
+      padding: 4px !important;
+    }
+  }
+}
