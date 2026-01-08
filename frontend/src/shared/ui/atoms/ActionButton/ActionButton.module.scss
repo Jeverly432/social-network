@@ -7,6 +7,7 @@ type VariantType = "primary" | "secondary" | "inverse" | "tertiary";
 type SizeType = "l" | "m" | "s" | "xs"
  */
 .button {
+  font-family: $font_inter;
   border-radius: 999px;
 
   &.primary {

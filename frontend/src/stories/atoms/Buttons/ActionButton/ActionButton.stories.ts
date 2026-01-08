@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Arrow } from '@shared/assets';
 
 const meta = {
-  title: 'Social-UI/atoms/ActionButton',
+  title: 'Social-UI/atoms/Buttons/ActionButton',
   component: ActionButton,
   parameters: {
     layout: 'centered',

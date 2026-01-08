@@ -1,0 +1,98 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.inputWrapper {
+  position: relative;
+}
+
+.input {
+  font-family: $font_inter;
+  background-color: $base_shade4 !important;
+  border-color: $base_shade4 !important;
+  color: $base;
+  @include typography-body;
+  box-shadow: unset !important;
+
+  :global {
+
+    .ant-input-prefix {
+      color: $base_shade3 !important;
+      margin-right: 8px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .ant-input {
+      &::placeholder {
+        color: $base_shade2;
+        @include typography-body;
+      }
+
+      &:disabled {
+        opacity: 0.5 !important;
+      }
+    }
+
+    .ant-input-suffix {
+      color: $base_shade3 !important;
+      margin-left: 8px;
+
+      span {
+        color: $base_shade3;
+      }
+
+      svg {
+
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .ant-input-clear-icon {
+      width: 15px;
+      height: 15px;
+
+      span {
+
+        width: 15px;
+        height: 15px;
+      }
+
+      &:hover {
+        span {
+          transition: 0.3s;
+          color: $primary !important;
+        }
+
+      }
+    }
+  }
+
+  &.error {
+    border-color: $alert !important;
+  }
+
+  &.square {
+    border-radius: 8px;
+  }
+
+
+  &.rounded {}
+
+
+  &.s {
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &.m {
+    height: 48px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}

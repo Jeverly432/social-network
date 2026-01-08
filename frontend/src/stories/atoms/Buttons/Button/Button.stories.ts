@@ -2,7 +2,7 @@ import { Button } from '@shared/ui';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta = {
-  title: 'Social-UI/atoms/Button',
+  title: 'Social-UI/atoms/Buttons/Button',
   component: Button,
   parameters: {
     layout: 'centered',
