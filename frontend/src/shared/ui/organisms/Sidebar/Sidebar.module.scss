@@ -1,0 +1,57 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.sidebar {
+  background-color: $white;
+  min-height: 100vh;
+  width: 288px;
+  border-right: 1px solid $base_shade4;
+}
+
+.headWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid $base_shade4;
+}
+
+.headInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  @include typography-headline;
+}
+
+.notifications {
+  position: relative;
+}
+
+.newNotification {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  background-color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+
+  span {
+    border-radius: 999px;
+    background-color: $alert;
+    width: 8px;
+    height: 8px;
+  }
+}
+
+.navigation {
+  padding: 8px 0;
+  border-bottom: 1px solid $base_shade4;
+}

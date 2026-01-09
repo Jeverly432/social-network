@@ -1,9 +1,13 @@
 import { memo } from "react"
 
-const HomePage = () => {
+const CommunityPage = () => {
+
+
   return (
-    <>Home page</>
+    <>
+     Community page
+    </>
   )
 }
 
-export default memo(HomePage)
+export default memo(CommunityPage)

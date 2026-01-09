@@ -1,0 +1,69 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.item {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+.tracking {
+  background-color: $primary_shade3;
+  color: $white;
+
+  .image {
+    background-color: $primary;
+  }
+}
+
+.image {
+  border-radius: 999px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  background-color: $secondary_shade4;
+
+  img {
+    object-fit: cover;
+    height: 100%;
+  }
+
+  svg {
+    color: $base;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  @include typography-body-bold;
+}
+
+.iconTracking {
+  svg {
+    color: $white
+  }
+}
+
+.titleTracking {
+  color: $primary;
+}
+
+.content {
+  margin-top: 4px;
+}

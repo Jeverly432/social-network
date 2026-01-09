@@ -1,3 +1,7 @@
 export { Arrow } from "./Arrow"
 export { Search } from "./Search"
 export { Flex } from "./Flex"
+export { Private } from "./Private"
+export { NewsFeed } from "./NewsFeed"
+export { Explore } from "./Explore"
+export { Notifications } from "./Notifications"

@@ -1,5 +1,6 @@
 import { ErrorBoundary } from "@entities/common";
 import { useAuthToken } from "@shared/lib/hooks/useAuthToken.hook"
+import { Layout } from "@shared/ui";
 import { memo, Suspense, useEffect } from "react"
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
@@ -16,9 +17,11 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <Suspense fallback={<></>}>
-        <Outlet />
-      </Suspense>
+      <Layout>
+        <Suspense fallback={<></>}>
+          <Outlet />
+        </Suspense>
+      </Layout>
     </ErrorBoundary>
   )
 }

@@ -1,0 +1,19 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.wrapper {
+  display: flex;
+}
+
+.sidebar {
+  display: flex;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: $background_shade1;
+  min-height: 100vh;
+}

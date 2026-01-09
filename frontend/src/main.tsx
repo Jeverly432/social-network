@@ -5,8 +5,9 @@ import { store } from '@app/store/root.store';
 import { RouterProvider } from 'react-router-dom';
 import { routes } from '@app/routes/root.route';
 
+
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
-    <RouterProvider router={routes} />
+      <RouterProvider router={routes} />
   </Provider>,
 )

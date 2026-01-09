@@ -2,13 +2,10 @@
 @use '@shared/styles/colors' as *;
 @use '@shared/styles/typography' as *;
 
-/* 
-type VariantType = "primary" | "secondary" | "inverse" | "tertiary";
-type SizeType = "l" | "m" | "s" | "xs"
- */
 .button {
   font-family: $font_inter;
   border-radius: 999px;
+  outline: unset !important;
 
   &.primary {
     background-color: $primary;
@@ -20,6 +17,7 @@ type SizeType = "l" | "m" | "s" | "xs"
       pointer-events: none;
       user-select: none;
     }
+
     &:hover {
       background-color: $base_inverse !important;
       color: $primary !important;
@@ -37,6 +35,7 @@ type SizeType = "l" | "m" | "s" | "xs"
       pointer-events: none;
       user-select: none;
     }
+
     &:hover {
       background-color: $base_inverse !important;
       color: $primary !important;
@@ -54,6 +53,7 @@ type SizeType = "l" | "m" | "s" | "xs"
       pointer-events: none;
       user-select: none;
     }
+
     &:hover {
       background-color: $base_inverse !important;
       color: $primary !important;
@@ -71,6 +71,7 @@ type SizeType = "l" | "m" | "s" | "xs"
       pointer-events: none;
       user-select: none;
     }
+
     &:hover {
       background-color: $base_inverse !important;
       color: $primary !important;
