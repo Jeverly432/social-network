@@ -1,0 +1,1 @@
+export const api = import.meta.env || "http://localhost:5000"

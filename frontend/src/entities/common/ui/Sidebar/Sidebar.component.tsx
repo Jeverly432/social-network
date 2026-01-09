@@ -14,6 +14,7 @@ export const Sidebar = () => {
       input={{ placeholder: "Search community and user", prefix: <Search />, size: "s" }}
       navigation={{ items: data, activeRoute: pathname }}
       communityData={communityData}
+      isCommunityLoading={false}
     />
   )
 }

@@ -17,8 +17,8 @@ export const ActionSlider: React.FC<IIconProps> = memo((props) => {
         <path d="M16.3438 10.6211C16.5195 10.4453 16.7656 10.4453 16.9414 10.6211L24.3242 17.9688C24.4648 18.1445 24.4648 18.3906 24.3242 18.5664L16.9414 25.9141C16.7656 26.0898 16.5195 26.0898 16.3438 25.9141L15.6406 25.2461C15.5 25.0703 15.5 24.7891 15.6406 24.6484L22.0039 18.25L15.6406 11.8867C15.5 11.7461 15.5 11.4648 15.6406 11.2891L16.3438 10.6211Z" fill="#292B32" />
       </g>
       <defs>
-        <filter id="filter0_dd_16924_2018" x="0" y="0" width="40" height="40" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <filter id="filter0_dd_16924_2018" x="0" y="0" width="40" height="40" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
           <feOffset dy="2" />
           <feGaussianBlur stdDeviation="2" />
