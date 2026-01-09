@@ -1,7 +1,12 @@
 const { Schema, model } = require('mongoose');
 
+// TODO: Добавить теги
+// TODO: Добавить верификацию boolean
+
 const Community = new Schema(
   {
+    /* tags:... */
+    /* verification:... */
     name: { type: String, required: true },
     slug: { type: String, unique: true, required: true },
     description: { type: String, required: false },

@@ -1,16 +1,10 @@
-import { ActionButton, Input, type IInputProps } from "@shared/ui/atoms"
+import { ActionButton, Input } from "@shared/ui/atoms"
 import styles from "./Sidebar.module.scss"
-import { Notifications } from "@shared/assets"
-import { Navigation, type INavigationProps } from "@shared/ui/molecules"
+import { Notifications, Plus } from "@shared/assets"
+import { Community, Navigation } from "@shared/ui/molecules"
+import type { ISidebarProps } from "./Sidebar.types"
 
-interface ISidebarProps {
-  newNotifications: boolean
-  title: string
-  input: IInputProps
-  navigation: INavigationProps
-}
-
-export const Sidebar = ({ title, newNotifications, input, navigation }: ISidebarProps) => {
+export const Sidebar = ({ title, newNotifications, input, navigation, communityData }: ISidebarProps) => {
   return (
     <div className={styles.sidebar}>
       <div className={styles.headWrapper}>
@@ -29,6 +23,16 @@ export const Sidebar = ({ title, newNotifications, input, navigation }: ISidebar
       </div>
       <div className={styles.navigation}>
         <Navigation  {...navigation} />
+      </div>
+      <div className={styles.communitiesSection}>
+        <h2 className={styles.subtitle}>My Communites</h2>
+        <div className={styles.create}>
+          <div className={styles.plus}>
+            <Plus />
+          </div>
+          <span>Create community</span>
+        </div>
+        <Community items={communityData} />
       </div>
     </div>
   )

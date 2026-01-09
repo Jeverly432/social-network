@@ -15,7 +15,6 @@
   box-shadow: unset !important;
 
   :global {
-
     .ant-input-prefix {
       color: $base_shade3 !important;
       margin-right: 8px;
@@ -27,6 +26,9 @@
     }
 
     .ant-input {
+      @include typography-body;
+
+
       &::placeholder {
         color: $base_shade2;
         @include typography-body;

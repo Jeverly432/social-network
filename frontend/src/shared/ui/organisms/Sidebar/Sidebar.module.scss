@@ -4,9 +4,12 @@
 
 .sidebar {
   background-color: $white;
-  min-height: 100vh;
+  height: 100vh;
   width: 288px;
   border-right: 1px solid $base_shade4;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .headWrapper {
@@ -54,4 +57,56 @@
 .navigation {
   padding: 8px 0;
   border-bottom: 1px solid $base_shade4;
+}
+
+.create {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-bottom: 8px;
+
+  span {
+    transition: 0.3s;
+    @include typography-body-bold;
+  }
+
+  svg {
+    transition: 0.3s;
+  }
+
+  &:hover {
+    span {
+      color: $primary;
+    }
+
+    svg {
+      color: $primary;
+    }
+  }
+}
+
+.plus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background-color: $secondary_shade4;
+}
+
+.communitiesSection {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.subtitle {
+  padding: 8px 16px;
+  margin: 8px 0;
+  @include typography-title-bold;
 }

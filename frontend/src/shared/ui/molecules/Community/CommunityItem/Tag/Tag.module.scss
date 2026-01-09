@@ -1,0 +1,18 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.tag {
+  display: inline-block;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 62px;
+  background-color: $base_shade4;
+  @include typography-caption;
+  padding: 0 6px;
+  height: 18px;
+  border-radius: 20px;
+  line-height: 19px !important;
+}
