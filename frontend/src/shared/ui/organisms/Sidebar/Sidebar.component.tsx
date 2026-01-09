@@ -32,7 +32,7 @@ export const Sidebar = ({ title, newNotifications, input, navigation, communityD
           </div>
           <span>Create community</span>
         </div>
-        <Community items={communityData} />
+        <Community items={communityData} isLoading={true}/>
       </div>
     </div>
   )

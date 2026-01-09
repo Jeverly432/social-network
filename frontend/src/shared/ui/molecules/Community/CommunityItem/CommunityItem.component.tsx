@@ -114,7 +114,5 @@ export const CommunityItem = ({ avatar, isPublic, membersCount, name, tags, veri
         </div>
       </div>
     </Link>
-
   )
-
 }
