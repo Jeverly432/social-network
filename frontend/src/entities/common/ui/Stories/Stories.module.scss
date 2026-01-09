@@ -1,0 +1,49 @@
+@use '@shared/styles/colors' as *;
+
+.wrapper {
+  position: relative;
+  padding: 16px 0 16px 16px;
+  background-color: $white;
+  border-radius: 8px;
+  border: 1px solid $base_shade4;
+}
+
+.titleCustom {
+  text-align: center;
+}
+
+.prevButton,
+.nextButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  color: white;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.prevButton {
+  left: 12px;
+
+  svg {
+    transform: rotate(180deg);
+  }
+}
+
+.nextButton {
+  right: 12px;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}

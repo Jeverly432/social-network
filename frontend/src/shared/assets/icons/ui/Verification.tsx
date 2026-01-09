@@ -1,5 +1,3 @@
-
-
 import type { IIconProps } from "@shared/types"
 import { memo } from "react"
 

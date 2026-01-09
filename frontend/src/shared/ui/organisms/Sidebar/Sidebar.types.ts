@@ -8,5 +8,6 @@ export interface ISidebarProps {
   input: IInputProps
   navigation: INavigationProps
   communityData: ICommunityItemProps[]
+  isCommunityLoading: boolean
 }
 

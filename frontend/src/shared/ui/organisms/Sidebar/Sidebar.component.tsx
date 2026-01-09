@@ -4,7 +4,7 @@ import { Notifications, Plus } from "@shared/assets"
 import { Community, Navigation } from "@shared/ui/molecules"
 import type { ISidebarProps } from "./Sidebar.types"
 
-export const Sidebar = ({ title, newNotifications, input, navigation, communityData }: ISidebarProps) => {
+export const Sidebar = ({ title, newNotifications, input, navigation, communityData,isCommunityLoading }: ISidebarProps) => {
   return (
     <div className={styles.sidebar}>
       <div className={styles.headWrapper}>
@@ -32,7 +32,7 @@ export const Sidebar = ({ title, newNotifications, input, navigation, communityD
           </div>
           <span>Create community</span>
         </div>
-        <Community items={communityData} isLoading={true}/>
+        <Community items={communityData} isLoading={isCommunityLoading}/>
       </div>
     </div>
   )

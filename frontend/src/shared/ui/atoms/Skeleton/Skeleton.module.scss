@@ -7,10 +7,6 @@
   overflow: hidden;
 }
 
-.rect {
- 
-}
-
 .circle {
   border-radius: 50% !important;
 }
@@ -42,10 +38,6 @@
     );
     animation: wave 1.5s ease-in-out infinite;
   }
-}
-
-.none {
-  // Без анимации
 }
 
 @keyframes pulse {

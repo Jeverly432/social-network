@@ -21,7 +21,8 @@
     "react-router-dom": "^7.11.0",
     "react-use-cookie": "^1.6.1",
     "redux-saga": "^1.4.2",
-    "storybook": "^10.1.11"
+    "storybook": "^10.1.11",
+    "swiper": "^12.0.3"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.3",
