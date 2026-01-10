@@ -1,19 +1,28 @@
 import App from "@app/App";
 import { createBrowserRouter } from "react-router-dom";
 import { Routes } from "./root.types";
-import { CommunityPage, Explore } from "./root.lazy";
+import { HomePage, ExplorePage, CommunityPage } from "./root.lazy";
 
 export const routes = createBrowserRouter([
   {
     element: <App />,
     children: [
       {
+        path: Routes.Home,
+        element: <HomePage />
+      },
+      {
         path: Routes.Community,
-        element: <CommunityPage />
+        children: [
+          {
+            path: ":slug",
+            element: <CommunityPage />,
+          }
+        ]
       },
       {
         path: Routes.Explore,
-        element: <Explore />
+        element: <ExplorePage />
       }
     ]
   }

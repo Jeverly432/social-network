@@ -1,12 +1,9 @@
 const { Schema, model } = require('mongoose');
 
-// TODO: Добавить теги
-// TODO: Добавить верификацию boolean
-
 const Community = new Schema(
   {
-    /* tags:... */
-    /* verification:... */
+    tags: [{ type: String}],
+    verification: { type: Boolean, default: false },
     name: { type: String, required: true },
     slug: { type: String, unique: true, required: true },
     description: { type: String, required: false },

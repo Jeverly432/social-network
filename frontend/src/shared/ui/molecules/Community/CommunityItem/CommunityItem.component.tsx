@@ -4,15 +4,18 @@ import { Private, Verification } from "@shared/assets"
 import { useEffect, useRef, useState } from "react"
 import { Tag } from "./Tag/Tag.component"
 import { Link } from "react-router-dom"
+import { Routes } from "@app/routes/root.types"
+import cn from "classnames"
 
 const TAGS_ROW_SIZE = 180
 
-export const CommunityItem = ({ avatar, isPublic, membersCount, name, tags, verification, link }: ICommunityItemProps) => {
+export const CommunityItem = ({ avatar, isPublic, membersCount, name, tags, verification, slug, activeSlug }: ICommunityItemProps) => {
   const wrapperTagsRef = useRef<HTMLDivElement>(null)
   const tagsRefs = useRef<(HTMLDivElement | null)[]>([])
   const [settingsTags, setSettingsTags] = useState<{
     visibleCount: number, countHidden: number
   }>({ visibleCount: tags.length, countHidden: 0 })
+  const isActiveSlug = activeSlug === slug
 
   const getRowSize = () => {
     if (tagsRefs.current.length !== tags.length) {
@@ -81,16 +84,16 @@ export const CommunityItem = ({ avatar, isPublic, membersCount, name, tags, veri
   }, [tags])
 
   return (
-    <Link to={link} className={styles.link}>
-      <div className={styles.wrapper}>
+    <Link to={`${Routes.Community}${slug}`} className={styles.link}>
+      <div className={cn(styles.wrapper, isActiveSlug && styles.activeSlug)}>
         <div className={styles.image}>
           <img src={avatar} alt={name} />
         </div>
         <div className={styles.content}>
-          <h3 className={styles.title}>
+          <h3 className={cn(styles.title, isActiveSlug && styles.activeSlug)}>
             {!isPublic && <Private />} {name} {verification && <Verification />}
           </h3>
-          <div className={styles.tags} ref={wrapperTagsRef}>
+          {tags.length > 0 && <div className={styles.tags} ref={wrapperTagsRef}>
             {tags.map((tag, index) => {
               const isVisible = index < settingsTags.visibleCount
               return (
@@ -108,6 +111,7 @@ export const CommunityItem = ({ avatar, isPublic, membersCount, name, tags, veri
               <Tag title={`+${settingsTags.countHidden}`} />
             )}
           </div>
+          }
           <span className={styles.members}>
             {membersCount} members
           </span>

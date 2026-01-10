@@ -1,4 +1,4 @@
-export interface UserState {
+export interface IUserState {
   postsCount: number,
   followersCount: number,
   followingCount: number,
@@ -12,7 +12,7 @@ export interface UserState {
 }
 
 export interface IUserInitialState {
-  user: UserState | null,
+  user: IUserState | null,
   token: string | null,
   isLoading: boolean,
   error: string | null,

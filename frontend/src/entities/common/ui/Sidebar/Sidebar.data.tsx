@@ -6,7 +6,7 @@ export const data = [
     title: "News",
     image: <NewsFeed />,
     key: "news",
-    link: Routes.Community,
+    link: Routes.Home,
   },
   {
     title: "Explore",

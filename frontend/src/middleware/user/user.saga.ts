@@ -5,7 +5,7 @@ import type { AxiosResponse } from "axios";
 import { call, put, takeEvery, select } from "redux-saga/effects";
 import { http } from "@shared/lib";
 import type { IResponseLogin, IResponseRegisterUser } from "./user.types";
-import type { UserState } from "@app/store/user/user.types";
+import type { IUserState } from "@app/store/user/user.types";
 
 export const postLoginUserAction = createAction<IResponseLogin>(`${userSliceName}/login`);
 export const postRegisterUserAction = createAction<IResponseRegisterUser>(`${userSliceName}/register`);
@@ -44,7 +44,7 @@ export function* getUserSaga() {
       yield put(setToken(token));
     }
 
-    const response: AxiosResponse<UserState> = yield call(() => 
+    const response: AxiosResponse<IUserState> = yield call(() => 
       http.get('/users/me')
     )
 

@@ -1,6 +1,7 @@
-import type { ICommunityItemProps } from "./CommunityItem/CommunityItem.types";
+import type { ICommunityState } from "@app/store/community/community.types";
 
 export interface ICommunityProps {
-  items: ICommunityItemProps[]
+  items: ICommunityState[] | []
   isLoading: boolean
+  activeSlug: string
 }

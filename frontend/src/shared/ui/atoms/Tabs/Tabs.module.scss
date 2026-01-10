@@ -1,0 +1,23 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.tabs {
+  &.secondary {
+    :global {
+      .ant-tabs-tab.ant-tabs-tab-active {}
+
+      .ant-tabs-ink-bar {
+        background-color: $primary;
+      }
+
+      .ant-tabs .ant-tabs-tab+.ant-tabs-tab {
+        margin-left: 20px !important;
+      }
+    }
+
+
+  }
+
+  &.icon {}
+}

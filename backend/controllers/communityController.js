@@ -16,7 +16,7 @@ class CommunityController {
   async createCommunity(req, res) {
     try {
       const userId = req.user.id;
-      const { name, description, isPublic, coverImage, avatar } = req.body;
+      const { name, description, isPublic, coverImage, avatar, tags, verification } = req.body;
 
       if (!name || name.trim() === '') {
         return res.status(400).json({ message: 'Community name is required' });
@@ -39,6 +39,8 @@ class CommunityController {
       }
 
       const community = new Community({
+        verification: verification || false,
+        tags: Array.isArray(tags) ? tags.filter(tag => tag && tag.trim()) : [],
         name: name.trim(),
         slug: slug,
         description: description || '',
@@ -251,7 +253,6 @@ class CommunityController {
         return res.status(404).json({ message: 'Community not found' });
       }
 
-      
       const posts = await Post.find({
         community: community._id,
         type: 'community',

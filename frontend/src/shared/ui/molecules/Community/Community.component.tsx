@@ -3,7 +3,7 @@ import { CommunityItem } from "./CommunityItem/CommunityItem.component"
 import styles from "./Community.module.scss"
 import { CommunityItemSkeleton } from "./CommunityItem/CommunityItemSkeleton/CommunityItemSkeleton.component"
 
-export const Community = ({ items, isLoading }: ICommunityProps) => {
+export const Community = ({ items, isLoading, activeSlug }: ICommunityProps) => {
   if (isLoading) {
     return (
       <div className={styles.wrapper}>
@@ -16,8 +16,8 @@ export const Community = ({ items, isLoading }: ICommunityProps) => {
 
   return (
     <div className={styles.wrapper}>
-      {items.map((item) => (
-        <CommunityItem {...item} key={item.name} />
+      {items && items.map((item) => (
+        <CommunityItem {...item} key={item.name} activeSlug={activeSlug} />
       ))}
     </div>
   )

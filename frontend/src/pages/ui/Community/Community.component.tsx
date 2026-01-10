@@ -1,42 +1,63 @@
-import { memo, useEffect, useState } from "react"
-import styles from "./Community.module.scss"
-import { Stories } from "@entities/common"
+import type { RootState } from "@app/store/root.types"
+import { getCurrentCommunityAction } from "@middleware/community/community.saga"
+import { memo, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { postLoginUserAction, getUserAction } from "@middleware/user/user.saga"
-import type { RootReducer } from "@app/store/root.reducer"
+import { useParams } from "react-router-dom"
+import styles from "./Community.module.scss"
 
 const CommunityPage = () => {
-  const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const token = useSelector((state: RootReducer) => state.user.token);
-  const user = useSelector((state: RootReducer) => state.user.user);
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    dispatch(postLoginUserAction({
-      email,
-      password
-    }));
-  };
+  const { slug } = useParams<{ slug: string }>()
+  const community = useSelector((state: RootState) => state.community.communities.current)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    console.log('Token from Redux:', token);
-    console.log('User from Redux:', user);
-  }, [token, user])
+    if (slug) {
+      dispatch(getCurrentCommunityAction({ pathname: slug }))
+    }
+  }, [dispatch, slug])
 
   return (
     <div className={styles.wrapper}>
-      <Stories />
-      {!token && (
-        <form onSubmit={handleLogin}>
-          <input value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button type="submit">Login</button>
-        </form>
-      )}
+      <div className={styles.head}>
+        <div className={styles.cover}>
+          <img src={community?.coverImage} alt={community?.slug} />
+        </div>
+        <div className={styles.contentWrapper}>
+          <h2 className={styles.title}>
+            {community?.name}
+          </h2>
+          {community?.tags && community?.tags.length > 0 && <ul className={styles.tags}>
+            {community?.tags.map((tag, index) => (
+              <li key={`${tag}-${index}`}>{tag}</li>
+            ))}
+          </ul>}
+          {community?.description && <p className={styles.description}>
+            {community?.description}
+          </p>}
+          <div className={styles.info}>
+            <div className={styles.infoPosts}>
+              <p>
+                {community?.postsCount}
+              </p>
+              <span>
+                posts
+              </span>
+            </div>
+            <div className={styles.infoSlash}></div>
+            <div className={styles.infoMembers}>
+              <p>
+                {community?.membersCount}
+              </p>
+              <span>
+                members
+              </span>
+            </div>
+          </div>
+          <div>
+            
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
