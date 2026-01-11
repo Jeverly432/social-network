@@ -1,16 +1,16 @@
 import { Routes } from "@app/routes/root.types";
-import { Explore, NewsFeed } from "@shared/assets";
+import {Icons } from "@shared/assets";
 
 export const data = [
   {
     title: "News",
-    image: <NewsFeed />,
+    image: <Icons.UI.NewsFeed />,
     key: "news",
     link: Routes.Home,
   },
   {
     title: "Explore",
-    image: <Explore />,
+    image: <Icons.UI.Explore />,
     key: "explore",
     link: Routes.Explore,
   },

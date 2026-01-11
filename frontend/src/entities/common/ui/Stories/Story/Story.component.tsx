@@ -1,7 +1,7 @@
 import type { IStoryProps } from "./Story.types"
 import styles from "./Story.module.scss"
 import cn from "classnames"
-import { Verification } from "@shared/assets"
+import { Icons } from "@shared/assets"
 
 export const Story = ({ ava, isVerified = false, isWatched, title, icon, titleClassName }: IStoryProps) => {
   return (
@@ -12,7 +12,7 @@ export const Story = ({ ava, isVerified = false, isWatched, title, icon, titleCl
             <img src={ava} alt={title} />
           </div>
         </div>
-        {isVerified && icon ? icon : <Verification className={styles.verification} />}
+        {isVerified && icon ? icon : <Icons.UI.Verification className={styles.verification} />}
       </div>
       <div className={cn(styles.title, titleClassName)}>
         {title}

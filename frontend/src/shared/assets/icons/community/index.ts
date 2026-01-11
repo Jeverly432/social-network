@@ -1,5 +1,7 @@
+import { Create } from "./create";
 import { Current } from "./current";
 
-export const CommunityIcons = {
-  Current
+export const Community = {
+  Current,
+  Create
 }

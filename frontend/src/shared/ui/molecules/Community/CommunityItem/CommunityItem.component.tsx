@@ -1,6 +1,6 @@
 import type { ICommunityItemProps } from "./CommunityItem.types"
 import styles from "./CommunityItem.module.scss"
-import { Private, Verification } from "@shared/assets"
+import { Icons } from "@shared/assets"
 import { useEffect, useRef, useState } from "react"
 import { Tag } from "./Tag/Tag.component"
 import { Link } from "react-router-dom"
@@ -91,7 +91,7 @@ export const CommunityItem = ({ avatar, isPublic, membersCount, name, tags, veri
         </div>
         <div className={styles.content}>
           <h3 className={cn(styles.title, isActiveSlug && styles.activeSlug)}>
-            {!isPublic && <Private />} {name} {verification && <Verification />}
+            {!isPublic && <Icons.UI.Private />} {name} {verification && <Icons.UI.Verification />}
           </h3>
           {tags.length > 0 && <div className={styles.tags} ref={wrapperTagsRef}>
             {tags.map((tag, index) => {

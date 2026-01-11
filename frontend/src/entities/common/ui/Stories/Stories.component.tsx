@@ -7,7 +7,7 @@ import { useState } from 'react';
 import styles from "./Stories.module.scss"
 import { dataStories } from './Stories.data';
 import { Story } from './Story/Story.component';
-import { ActionSlider, AddStory } from '@shared/assets';
+import { Icons } from '@shared/assets';
 import Avatar from "@shared/assets/images/ui/avatar.png"
 import cn from 'classnames';
 
@@ -55,7 +55,7 @@ export const Stories = () => {
         onReachBeginning={handleReachBeginning}
       >
         <SwiperSlide key="add-story">
-          <Story icon={<AddStory />} title='Story' isWatched={false} ava={Avatar} titleClassName={styles.titleCustom} />
+          <Story icon={<Icons.UI.AddStory />} title='Story' isWatched={false} ava={Avatar} titleClassName={styles.titleCustom} />
         </SwiperSlide>
         {dataStories.map((story, index) => (
           <SwiperSlide key={index}>
@@ -64,10 +64,10 @@ export const Stories = () => {
         ))}
       </Swiper>
       <div className={cn(styles.prevButton, isBeginning && styles.hidden)} aria-label="Previous slide">
-        <ActionSlider />
+        <Icons.UI.ActionSlider />
       </div>
       <div className={cn(styles.nextButton, isEnd && styles.hidden)} aria-label="Next slide">
-        <ActionSlider />
+        <Icons.UI.ActionSlider />
       </div>
     </div>
   )

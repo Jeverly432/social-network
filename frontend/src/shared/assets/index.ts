@@ -1,2 +1,8 @@
-export * from "./icons/ui"
-export * from "./icons/community"
+
+import { Community } from "./icons/community";
+import { UI } from "./icons/ui";
+
+export const Icons = {
+  UI,
+  Community
+}

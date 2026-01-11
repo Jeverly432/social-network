@@ -2,5 +2,6 @@ export const Routes = {
   Home: '/',
   Profile: '/profile',
   Explore: '/explore',
-  Community: '/community/'
+  Community: '/community/',
+  CommunityCreate: 'create'
 }

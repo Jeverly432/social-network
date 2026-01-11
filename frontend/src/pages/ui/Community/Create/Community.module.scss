@@ -1,3 +1,26 @@
-.wrapper{
-  
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 28px auto;
+  max-width: 546px;
+  width: 100%;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid $base_shade4;
+  padding: 20px 16px;
+}
+
+.title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

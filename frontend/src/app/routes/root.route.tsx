@@ -1,7 +1,7 @@
 import App from "@app/App";
 import { createBrowserRouter } from "react-router-dom";
 import { Routes } from "./root.types";
-import { HomePage, ExplorePage, CommunityPage } from "./root.lazy";
+import { HomePage, ExplorePage, CommunityPage, CommunityCreatePage } from "./root.lazy";
 
 export const routes = createBrowserRouter([
   {
@@ -17,6 +17,10 @@ export const routes = createBrowserRouter([
           {
             path: ":slug",
             element: <CommunityPage />,
+          },
+          {
+            path: Routes.CommunityCreate,
+            element: <CommunityCreatePage />
           }
         ]
       },

@@ -7,7 +7,7 @@ import styles from "./Community.module.scss"
 import { Skeleton } from "./Skeleton/Skeleton.component"
 import { Head } from "./Head/Head.component"
 import { Post } from "./Post/Post.component"
-import { Tabs as TabsIcons } from "@shared/assets"
+import { Icons } from "@shared/assets"
 
 
 const CommunityPage = () => {
@@ -29,19 +29,19 @@ const CommunityPage = () => {
   const items = [
     {
       key: '1',
-      label: <TabsIcons.Posts />
+      label: <Icons.UI.Tabs.Posts />
     },
     {
       key: '2',
-      label: <TabsIcons.Pinned />
+      label: <Icons.UI.Tabs.Pinned />
     },
     {
       key: '3',
-      label: <TabsIcons.Gallery />
+      label: <Icons.UI.Tabs.Gallery />
     },
     {
       key: '4',
-      label: <TabsIcons.Video />
+      label: <Icons.UI.Tabs.Video />
     }
   ]
 

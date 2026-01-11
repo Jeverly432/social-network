@@ -1,6 +1,6 @@
 import { ActionButton, Community, Input, Navigation } from "@shared/ui"
-import { Notifications, Plus } from "@shared/assets"
-import { useLocation, useParams } from "react-router-dom"
+import { Icons} from "@shared/assets"
+import { Link, useLocation, useParams } from "react-router-dom"
 import { data } from "./Sidebar.data"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
@@ -32,7 +32,7 @@ export const Sidebar = () => {
           </h1>
           <div className={styles.notifications}>
             <ActionButton variant="secondary" size="m">
-              <Notifications />
+              <Icons.UI.Notifications />
             </ActionButton>
             {newNotification && <div className={styles.newNotification}><span></span></div>}
           </div>
@@ -43,13 +43,15 @@ export const Sidebar = () => {
         <Navigation items={data} activeRoute={pathname} />
       </div>
       <div className={styles.communitiesSection}>
-        <h2 className={styles.subtitle}>My Communites</h2>
-        <div className={styles.create}>
-          <div className={styles.plus}>
-            <Plus />
-          </div>
-          <span>Create community</span>
-        </div>
+        <h2 className={styles.subtitle}>My Communities</h2>
+        <Link to="/community/create">
+          <button className={styles.create}>
+            <div className={styles.plus}>
+              <Icons.UI.Plus />
+            </div>
+            <span>Create community</span>
+          </button>
+        </Link>
         <Community items={communities} isLoading={communitiesIsLoading} activeSlug={params.slug || ""} />
       </div>
     </div>
