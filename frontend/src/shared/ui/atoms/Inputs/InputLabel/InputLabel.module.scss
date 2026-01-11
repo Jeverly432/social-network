@@ -1,0 +1,33 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.wrapper {}
+
+.inputCustom.inputCustom {
+  background-color: transparent !important;
+  margin-top: 20px !important;
+  border-bottom: 1px solid $base_shade4 !important;
+  border-top: 1px solid white !important;
+  border-left: 1px solid white !important;
+  border-right: 1px solid white !important;
+  border-radius: 4px 4px 0 0 !important;
+  margin-top: 0 !important;
+  height: 52px !important;
+  padding: 0 !important;
+
+  &:focus-within {
+    border-bottom-color: $primary !important;
+  }
+
+  :global {
+    .ant-input-show-count-suffix {
+      @include typography-caption;
+    }
+  }
+}
+
+.title {
+  @include typography-title-bold;
+  margin-bottom: 4px;
+}

@@ -17,10 +17,37 @@
   background-color: white;
   border: 1px solid $base_shade4;
   padding: 20px 16px;
+  border-radius: 8px;
 }
 
-.title{
+.title {
   display: flex;
-  justify-content: center;
+  margin: 0 auto;
+  @include typography-headline;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  background-color: white;
+  gap: 24px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $base_shade4;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.suffix {
+  display: flex;
   align-items: center;
+  gap: 8px;
+
+  span {
+    @include typography-caption;
+  }
 }

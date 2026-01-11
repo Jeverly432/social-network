@@ -5,6 +5,6 @@ import style from "./Input.module.scss"
 
 export const Input = ({ size = "m", variant = "square", className, status, ...props }: IInputProps) => {
   return (
-    <InputAnt {...props} className={cn(style.input, style[size], style[variant], status && style[status], className)} status={status} />
+    <InputAnt {...props} className={cn(className, style.input, style[size], style[variant], status && style[status])} status={status} />
   )
 }

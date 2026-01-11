@@ -6,11 +6,13 @@ export const communitySliceName = "community"
 const initialState: ICommunityInitialState = {
   communities: {
     list: [],
-    current: null
+    current: null,
+    avatar: null
   },
   isLoading: {
     list: false,
-    current: false
+    current: false,
+    avatar: false
   },
   error: null,
 }
@@ -25,14 +27,17 @@ const communitySlice = createSlice({
     setCurrentCommunity: (state, action: PayloadAction<ICommunityState>) => {
       state.communities.current = action.payload
     },
-    setIsLoading: (state, action: PayloadAction<{ type: 'list' | 'current', value: boolean }>) => {
+    setIsLoading: (state, action: PayloadAction<{ type: 'list' | 'current' | 'avatar', value: boolean }>) => {
       state.isLoading[action.payload.type] = action.payload.value
+    },
+    setUploadAvatar: (state, action: PayloadAction<File>) => {
+      state.communities.avatar = action.payload
     }
   }
 })
 
 
 export const {
-  actions: { setCommunitiesList, setCurrentCommunity, setIsLoading },
+  actions: { setCommunitiesList, setCurrentCommunity, setIsLoading, setUploadAvatar },
   reducer: communityStateReducer
 } = communitySlice

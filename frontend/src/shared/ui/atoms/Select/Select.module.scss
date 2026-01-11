@@ -1,0 +1,70 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+
+.select {
+  padding: 10px 12px;
+  border-color: $base_shade4 ;
+  box-shadow: none !important;
+
+  &.small {}
+
+  &.middle {
+    :global {
+      .ant-select-placeholder {
+        color: $base_shade3 !important;
+        @include typography-body;
+      }
+
+      .ant-select-content {
+        line-height: 20px !important;
+      }
+
+      .ant-select-content-item {
+        line-height: 20px !important;
+        @include typography-body;
+
+    
+
+        .ant-select-selection-item-content {
+          @include typography-body;
+          line-height: 20px !important;
+        }
+
+        input {
+          line-height: 20px !important;
+        }
+      }
+    }
+
+    &:global(.ant-select-open) {
+      border-color: $primary !important;
+    }
+  }
+
+  &.large {}
+}
+
+.selectDropdown {
+  :global {
+    .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+
+      background-color: $primary_shade3 !important;
+
+    
+    }
+    .ant-select-item-option{
+      @include typography-caption-small;
+      line-height: 19px;
+
+      &:hover {
+        background-color: $base_shade4 !important;
+      }
+    }
+    .ant-select-item-option-content{
+      display: flex;
+      align-items: center;
+    }
+  }
+}

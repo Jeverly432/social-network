@@ -1,9 +1,9 @@
-import { communitySliceName, setCommunitiesList, setCurrentCommunity, setIsLoading } from "@app/store/community/community.slice";
+import { communitySliceName, setCommunitiesList, setCurrentCommunity, setIsLoading, setUploadAvatar } from "@app/store/community/community.slice";
 import { createAction } from "@reduxjs/toolkit";
 import { http } from "@shared/lib";
 import type { AxiosResponse } from "axios";
 import { call, put, takeEvery } from "redux-saga/effects";
-import type { IResponseCommunities } from "./community.types";
+import type { IAvatarResponse, IPostUploadAvatar, IResponseCommunities } from "./community.types";
 
 export function* getCommunitiesSaga() {
   try {
@@ -41,10 +41,32 @@ export function* getCurrentCommunity(action: { payload: { pathname: string } }) 
   }
 }
 
+export function* postUploadAvatar(action: { payload: IPostUploadAvatar }) {
+  try {
+    const { file, id } = action.payload
+    if (id && file) {
+      yield put(setIsLoading({ type: 'avatar', value: true }))
+      const response: AxiosResponse<IAvatarResponse> = yield call(() =>
+        http.post(`/community/${id}/avatar`, {
+          file: file
+        })
+      )
+
+      if (response.data) {
+        yield put(setIsLoading({ type: 'avatar', value: false }))
+      }
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const postCommunityAvatarAction = createAction<IPostUploadAvatar>(`${communitySliceName}/avatar`)
 export const getCurrentCommunityAction = createAction<{ pathname: string }>(`${communitySliceName}/selected`)
 export const getCommunitiesAction = createAction(`${communitySliceName}/all`)
 
 export function* communitySaga() {
   yield takeEvery(getCommunitiesAction, getCommunitiesSaga)
   yield takeEvery(getCurrentCommunityAction, getCurrentCommunity)
+  yield takeEvery(postCommunityAvatarAction, postUploadAvatar)
 }
