@@ -5,19 +5,68 @@
 .tabs {
   &.secondary {
     :global {
-      .ant-tabs-tab.ant-tabs-tab-active {}
+      .ant-tabs-nav {
+        margin-bottom: 0 !important;
+      }
+
+      .ant-tabs-tab.ant-tabs-tab-active {
+        .ant-tabs-tab-btn {
+          color: $primary;
+        }
+      }
+
+      .ant-tabs-tab {
+        padding-top: 0 !important;
+        @include typography-body-bold;
+        font-family: $font_inter;
+
+        &:hover {
+          color: $primary;
+        }
+      }
 
       .ant-tabs-ink-bar {
         background-color: $primary;
       }
 
-      .ant-tabs .ant-tabs-tab+.ant-tabs-tab {
+      .ant-tabs-nav-list .ant-tabs-tab+.ant-tabs-tab {
         margin-left: 20px !important;
       }
     }
-
-
   }
 
-  &.icon {}
+  &.icon {
+    :global {
+      .ant-tabs-nav {
+        margin-bottom: 0 !important;
+      }
+
+      .ant-tabs-tab {
+        padding-top: 0 !important;
+        padding-bottom: 14px;
+        font-family: $font_inter;
+        padding-left: 44px;
+        padding-right: 44px;
+        color: $base_shade2;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+
+      .ant-tabs-ink-bar {
+        background-color: $primary;
+      }
+
+      .ant-tabs-nav-list .ant-tabs-tab+.ant-tabs-tab {
+        margin-left: 20px !important;
+      }
+
+      .ant-tabs-tab.ant-tabs-tab-active {
+        .ant-tabs-tab-btn {
+          color: $base;
+        }
+      }
+    }
+  }
 }

@@ -1,7 +1,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tabs } from '@shared/ui';
-
+import { Tabs as TabsIcons } from "@shared/assets"
 
 const items = [
   {
@@ -11,6 +11,25 @@ const items = [
   {
     key: '2',
     label: 'Tab 2',
+  }
+]
+
+const iconItems = [
+  {
+    key: '1',
+    label: <TabsIcons.Posts />
+  },
+  {
+    key: '2',
+    label: <TabsIcons.Pinned />
+  },
+  {
+    key: '3',
+    label: <TabsIcons.Gallery />
+  },
+  {
+    key: '4',
+    label: <TabsIcons.Video />
   }
 ]
 
@@ -39,6 +58,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
+    items: iconItems,
     variant: 'icon',
   },
 };

@@ -9,6 +9,7 @@ export interface IUserState {
   role: [string],
   createdAt: Date,
   updatedAt: Date,
+  avatar: string
 }
 
 export interface IUserInitialState {

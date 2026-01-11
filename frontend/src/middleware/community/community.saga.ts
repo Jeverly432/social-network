@@ -12,12 +12,13 @@ export function* getCommunitiesSaga() {
       http.get('/community/all')
     )
 
-    yield put(setCommunitiesList(response.data.communities))
+    if (response.data) {
+      yield put(setCommunitiesList(response.data.communities))
+      yield put(setIsLoading({ type: "list", value: false }))
+    }
 
   } catch (e) {
     console.log(e)
-  } finally {
-    yield put(setIsLoading({ type: "list", value: false }))
   }
 }
 
@@ -32,12 +33,11 @@ export function* getCurrentCommunity(action: { payload: { pathname: string } }) 
 
       if (response.data) {
         yield put(setCurrentCommunity(response.data))
+        yield put(setIsLoading({ type: "current", value: false }))
       }
     }
   } catch (e) {
     console.log(e)
-  } finally {
-    yield put(setIsLoading({ type: "current", value: false }))
   }
 }
 

@@ -1,0 +1,12 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 28px auto;
+  max-width: 546px;
+  width: 100%;
+}
