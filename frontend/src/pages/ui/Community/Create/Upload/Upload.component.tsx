@@ -2,14 +2,11 @@ import { message, Upload, type UploadProps } from "antd"
 import { useState } from "react"
 import styles from "./Upload.module.scss"
 import { Icons } from "@shared/assets";
-import { useDispatch } from "react-redux";
-import { setUploadAvatar } from "@app/store/community/community.slice";
-import type { FileType } from "./Upload.types";
+import type { FileType, IUploadComponentProps } from "./Upload.types";
 
-export const UploadComponent = () => {
+export const UploadComponent = ({ onFileChange }: IUploadComponentProps) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
-  const dispatch = useDispatch()
 
   const getBase64 = (img: FileType, callback: (url: string) => void) => {
     const reader = new FileReader();
@@ -19,11 +16,14 @@ export const UploadComponent = () => {
 
   const handleChange: UploadProps['onChange'] = (info) => {
     const file = info.file.originFileObj as FileType;
-    dispatch(setUploadAvatar(file))
-    getBase64(file, (url) => {
-      setLoading(false);
-      setImageUrl(url);
-    });
+    
+    if (file) {
+      getBase64(file, (url) => {
+        setLoading(false);
+        setImageUrl(url);
+        onFileChange?.(file);
+      });
+    }
   };
 
   const beforeUpload = (file: FileType) => {
@@ -44,7 +44,6 @@ export const UploadComponent = () => {
     </button>
   );
 
-
   return (
     <Upload
       name="avatar"
@@ -56,7 +55,7 @@ export const UploadComponent = () => {
       customRequest={() => { }}
     >
       {imageUrl ? (
-        <img draggable={false} src={imageUrl} alt="avatar" style={{ width: '100%' }} />
+        <img draggable={false} src={imageUrl} alt="avatar"/>
       ) : (
         uploadButton
       )}

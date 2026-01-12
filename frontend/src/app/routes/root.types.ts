@@ -3,5 +3,6 @@ export const Routes = {
   Profile: '/profile',
   Explore: '/explore',
   Community: '/community/',
-  CommunityCreate: 'create'
+  CommunityCreate: 'create',
+  CommunitySettings: 'settings'
 }

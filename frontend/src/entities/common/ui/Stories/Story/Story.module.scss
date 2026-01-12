@@ -30,8 +30,33 @@
   border-radius: 999px;
 }
 
+@keyframes gradientRotate {
+  0% {
+    transform: rotate(200deg);
+  }
+  100% {
+    transform: rotate(560deg);
+  }
+}
+
 .avaNotWatched {
-  background: linear-gradient(200deg, #339AF9 0%, #78FA58 100%) !important;
+  position: relative;
+  background: $base_shade4;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background: conic-gradient(from 0deg, #339AF9, #78FA58, #339AF9);
+    animation: gradientRotate 1s linear forwards;
+    z-index: 0;
+  }
+  
+  .avaBorder {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .avaBorder {
@@ -74,4 +99,5 @@
   height: 24px;
   right: 0;
   bottom: 0;
+  z-index: 3;
 }

@@ -17,7 +17,7 @@ export const Community = ({ items, isLoading, activeSlug }: ICommunityProps) => 
   return (
     <div className={styles.wrapper}>
       {items && items.map((item) => (
-        <CommunityItem {...item} key={item.name} activeSlug={activeSlug} />
+        <CommunityItem {...item} key={item.slug} activeSlug={activeSlug} />
       ))}
     </div>
   )

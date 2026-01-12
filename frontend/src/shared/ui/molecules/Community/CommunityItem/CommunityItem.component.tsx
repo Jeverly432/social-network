@@ -9,7 +9,7 @@ import cn from "classnames"
 
 const TAGS_ROW_SIZE = 180
 
-export const CommunityItem = ({ avatar, isPublic, membersCount, name, tags, verification, slug, activeSlug }: ICommunityItemProps) => {
+export const CommunityItem = ({ coverImage, isPublic, membersCount, name, tags, verification, slug, activeSlug }: ICommunityItemProps) => {
   const wrapperTagsRef = useRef<HTMLDivElement>(null)
   const tagsRefs = useRef<(HTMLDivElement | null)[]>([])
   const [settingsTags, setSettingsTags] = useState<{
@@ -87,7 +87,7 @@ export const CommunityItem = ({ avatar, isPublic, membersCount, name, tags, veri
     <Link to={`${Routes.Community}${slug}`} className={styles.link}>
       <div className={cn(styles.wrapper, isActiveSlug && styles.activeSlug)}>
         <div className={styles.image}>
-          <img src={avatar} alt={name} />
+          <img src={coverImage} alt={name} />
         </div>
         <div className={styles.content}>
           <h3 className={cn(styles.title, isActiveSlug && styles.activeSlug)}>

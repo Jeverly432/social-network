@@ -5,7 +5,7 @@ export interface ICommunityState {
   name: string
   slug: string,
   description: string,
-  id: string
+  _id: string
   avatar: string,
   coverImage: string,
   isPublic: boolean,
@@ -23,12 +23,13 @@ export interface ICommunityInitialState {
   communities: {
     list: ICommunityState[] | []
     current: ICommunityState | null
-    avatar: File | null
+    avatar: string | null
+    created: ICommunityState | null
   }
   isLoading: {
     list: boolean
     current: boolean
-    avatar: boolean | null
+    avatar: boolean
   }
 
   error: string | null

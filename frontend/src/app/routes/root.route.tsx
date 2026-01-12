@@ -1,7 +1,7 @@
 import App from "@app/App";
 import { createBrowserRouter } from "react-router-dom";
 import { Routes } from "./root.types";
-import { HomePage, ExplorePage, CommunityPage, CommunityCreatePage } from "./root.lazy";
+import { HomePage, ExplorePage, CommunityPage, CommunityCreatePage, CommunitySettings } from "./root.lazy";
 
 export const routes = createBrowserRouter([
   {
@@ -17,11 +17,18 @@ export const routes = createBrowserRouter([
           {
             path: ":slug",
             element: <CommunityPage />,
+            children: [
+              {
+                path: Routes.CommunitySettings,
+                element: <CommunitySettings />
+              }
+            ]
           },
           {
             path: Routes.CommunityCreate,
             element: <CommunityCreatePage />
-          }
+          },
+
         ]
       },
       {

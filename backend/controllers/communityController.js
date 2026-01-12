@@ -114,9 +114,7 @@ class CommunityController {
 
   async getAllCommunities(req, res) {
     try {
-      const communities = await Community.find({
-        isPublic: true,
-      })
+      const communities = await Community.find({})
         .populate('creator', 'userName avatar')
         .sort({ membersCount: -1 });
 

@@ -7,6 +7,7 @@
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid $base_shade4;
+  position: relative;
 }
 
 .cover {
@@ -84,4 +85,16 @@
 
 .tabContent {
   padding: 16px;
+}
+
+.button {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+}
+
+.settings {
+  position: absolute;
+  right: 16px;
+  top: 16px;
 }

@@ -1,3 +1,7 @@
+import { Icons } from "@shared/assets"
+import styles from "./Community.module.scss"
+import type { Rule } from "antd/es/form"
+
 export const selectOptions = [
   { label: "Technology", value: "technology" },
   { label: "Programming", value: "programming" },
@@ -29,4 +33,37 @@ export const selectOptions = [
   { label: "Writing", value: "writing" },
   { label: "Entrepreneurship", value: "entrepreneurship" },
   { label: "Lifestyle", value: "lifestyle" }
+]
+
+export const suffix = (
+  <div className={styles.suffix}>
+    <Icons.Community.Create.ArrowDown />
+  </div>
+)
+
+export const nameRules: Rule[] = [
+  { required: true, message: 'Community name is required' },
+  { min: 3, message: 'Name must be at least 3 characters' },
+  { max: 30, message: 'Name must be less than 30 characters' },
+  {
+    pattern: /^[a-zA-Z0-9\s\-_]+$/,
+    message: 'Name can only contain letters, numbers, spaces, hyphens and underscores'
+  }
+]
+
+export const descriptionRules: Rule[] = [
+  { required: true, max: 180, message: 'Description must be less than 180 characters' }
+]
+
+export const categoryRules: Rule[] = [
+  {
+    required: true,
+    message: 'Please select at least one category',
+    type: 'array' as const,
+    min: 1,
+  }
+]
+
+export const privacyRules: Rule[] = [
+  { required: true, message: 'Please select privacy setting' }
 ]

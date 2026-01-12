@@ -2,23 +2,30 @@ import type { RootState } from "@app/store/root.types"
 import { getCurrentCommunityAction } from "@middleware/community/community.saga"
 import { memo, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useParams, useLocation, Outlet } from "react-router-dom"
 import styles from "./Community.module.scss"
 import { Skeleton } from "./Skeleton/Skeleton.component"
 import { Head } from "./Head/Head.component"
 import { Post } from "./Post/Post.component"
 import { Icons } from "@shared/assets"
+import { setCreatedCommunity } from "@app/store/community/community.slice"
 
 
 const CommunityPage = () => {
   const { slug } = useParams<{ slug: string }>()
+  const location = useLocation()
   const isLoading = useSelector((state: RootState) => state.community.isLoading.current)
   const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState('1')
+  const isSettingsPage = location.pathname.endsWith('/settings')
+
 
   useEffect(() => {
     if (slug) {
       dispatch(getCurrentCommunityAction({ pathname: slug }))
+    }
+    return () => {
+      dispatch(setCreatedCommunity(null))
     }
   }, [dispatch, slug])
 
@@ -59,6 +66,11 @@ const CommunityPage = () => {
         return null
     }
   }
+
+  if (isSettingsPage) {
+    return <Outlet />
+  }
+
   return (
     <div className={styles.wrapper}>
       <Head setActiveTab={setActiveTab} activeTab={activeTab} items={items} />

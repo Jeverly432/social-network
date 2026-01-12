@@ -1,23 +1,26 @@
 import type { RootState } from "@app/store/root.types"
 import { useSelector } from "react-redux"
 import styles from "./Head.module.scss"
-import { Tabs } from "@shared/ui"
-import type { CompatibilityProps } from "antd/es/tabs"
-import type { Tab } from '@rc-component/tabs/lib/interface';
-
-interface IHeadProps {
-  items: (Tab & CompatibilityProps)[]
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>
-  activeTab: string
-}
+import { ActionButton, Tabs } from "@shared/ui"
+import Cover from "@shared/assets/images/image/cover-image.webp"
+import { Icons } from "@shared/assets"
+import { useNavigate } from "react-router-dom"
+import type { IHeadProps } from "./Head.types"
 
 export const Head = ({ items, setActiveTab, activeTab }: IHeadProps) => {
   const community = useSelector((state: RootState) => state.community.communities.current)
+  const navigate = useNavigate()
 
   return (
     <div className={styles.head}>
+      <ActionButton variant="tertiary" size="m" className={styles.button} onClick={() => navigate('/')}>
+        <Icons.Community.Current.Arrow />
+      </ActionButton>
+      <ActionButton variant="tertiary" size="m" className={styles.settings} onClick={() => navigate('settings')}>
+        <Icons.Community.Current.Create />
+      </ActionButton>
       <div className={styles.cover}>
-        <img src={community?.coverImage} alt={community?.slug} />
+        <img src={community?.coverImage || Cover} alt={community?.slug} />
       </div>
       <div className={styles.contentWrapper}>
         <h2 className={styles.title}>

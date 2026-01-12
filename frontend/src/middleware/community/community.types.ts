@@ -12,3 +12,10 @@ export interface IPostUploadAvatar {
 export interface IAvatarResponse {
   imageUrl: string
 }
+
+export interface IPostCreateCommunity {
+  name: string
+  description: string
+  categories: string[]
+  privacy: number
+}
