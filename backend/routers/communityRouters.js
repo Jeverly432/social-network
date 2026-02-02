@@ -5,6 +5,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 const communityController = require('../controllers/communityController');
 
 router.post('/create', authMiddleware, communityController.createCommunity);
+router.put('/:slug', authMiddleware, communityController.updateCommunity);
 router.get('/my', authMiddleware, communityController.getMyCommunities);
 router.get('/all', communityController.getAllCommunities);
 router.post('/:id/join', authMiddleware, communityController.joinCommunity);

@@ -3,7 +3,7 @@ import { createAction } from "@reduxjs/toolkit";
 import { http } from "@shared/lib";
 import type { AxiosResponse } from "axios";
 import { call, put, takeEvery } from "redux-saga/effects";
-import type { IAvatarResponse, IPostCreateCommunity, IPostUploadAvatar, IResponseCommunities } from "./community.types";
+import type { IAvatarResponse, IPostCreateCommunity, IPostUpdateCommunity, IPostUploadAvatar, IResponseCommunities } from "./community.types";
 import type { ICommunityState } from "@app/store/community/community.types";
 
 export function* getCommunitiesSaga() {
@@ -85,29 +85,45 @@ export function* postCreateCommunity(action: { payload: IPostCreateCommunity }) 
   }
 }
 
-
-/* export function getMyCommunity(action: { payload: any }) {
+export function* putUpdateCommunity(action: { payload: { slug: string; data: IPostUpdateCommunity } }) {
   try {
-    const response: AxiosResponse<any> = yield call(() =>
-      http.get('/community/my')
-    )
-    if(response.data){
+    const { slug, data } = action.payload
+    if (slug && data) {
+      yield put(setIsLoading({ type: "current", value: true }))
 
+      const updateData = {
+        name: data.name,
+        description: data.description,
+        tags: data.categories,
+        isPublic: data.privacy === 1 ? true : false
+      }
+
+      const response: AxiosResponse<ICommunityState> = yield call(() =>
+        http.put(`community/${slug}`, updateData)
+      )
+
+      if (response.data) {
+        yield put(setCurrentCommunity(response.data))
+        yield put(setIsLoading({ type: "current", value: false }))
+      }
     }
+
   } catch (e) {
     console.log(e)
+    yield put(setIsLoading({ type: "current", value: false }))
   }
-} */
-
+}
 
 export const postCommunityAvatarAction = createAction<IPostUploadAvatar>(`${communitySliceName}/avatar`)
 export const getCurrentCommunityAction = createAction<{ pathname: string }>(`${communitySliceName}/selected`)
 export const getCommunitiesAction = createAction(`${communitySliceName}/all`)
 export const postCreateCommunityAction = createAction<IPostCreateCommunity>(`${communitySliceName}/create`)
+export const putUpdateCommunityAction = createAction<{ slug: string; data: IPostUpdateCommunity }>(`${communitySliceName}/update`)
 
 export function* communitySaga() {
   yield takeEvery(getCommunitiesAction, getCommunitiesSaga)
   yield takeEvery(getCurrentCommunityAction, getCurrentCommunity)
   yield takeEvery(postCommunityAvatarAction, postUploadAvatar)
   yield takeEvery(postCreateCommunityAction, postCreateCommunity)
+  yield takeEvery(putUpdateCommunityAction, putUpdateCommunity)
 }

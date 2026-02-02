@@ -1,0 +1,26 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.upload {
+  :global {
+    .ant-upload.ant-upload-select {
+      width: 100% !important;
+      background-color: #959aa3 !important;
+      border-radius: 8px 8px 0 0 !important;
+      height: 273px !important;
+      border: 0px !important;
+
+      svg {
+        transition: 0.3s;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      &:hover {
+        svg {
+          color: $primary ;
+        }
+      }
+    }
+  }
+}

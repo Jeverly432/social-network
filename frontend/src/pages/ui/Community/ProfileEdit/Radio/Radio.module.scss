@@ -1,0 +1,44 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.radio {
+  padding: 0 !important;
+  gap: 0 !important;
+
+  :global {
+    .ant-radio-wrapper {
+      margin-right: 0;
+      flex-direction: row-reverse;
+      padding: 16px 0;
+
+      .ant-radio-label {
+        width: 100%;
+        padding-left: 0;
+      }
+
+      .ant-radio {
+        width: 20px !important;
+        height: 20px !important;
+
+        .ant-radio-inner {
+          width: 20px;
+          height: 20px;
+          border-color: $base_shade3;
+        }
+
+        &.ant-radio-checked {
+          .ant-radio-inner {
+            border-color: $primary !important;
+            background-color: $primary !important;
+
+            &::after {
+              transform: scale(0.5);
+              background-color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}

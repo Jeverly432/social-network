@@ -1,0 +1,35 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.wrapper {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $base_shade4;
+  border-radius: 999px;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  @include typography-body-bold;
+}
+
+.description {
+  color: $base_shade1;
+  @include typography-caption;
+}

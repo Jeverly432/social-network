@@ -1,0 +1,58 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.titleSkeleton {
+  margin: 0 auto;
+}
+
+.fieldWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.labelSkeleton {
+  margin-bottom: 4px;
+}
+
+.subtitleSkeleton {
+  margin-bottom: 4px;
+}
+
+.radioWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.radioItem {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 0;
+  gap: 12px;
+}
+
+.radioContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+}
+
+.radioIcon {
+  flex-shrink: 0;
+}
+
+.radioText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.radioDescription {
+  max-width: 100%;
+}
+

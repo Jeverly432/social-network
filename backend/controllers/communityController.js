@@ -40,7 +40,7 @@ class CommunityController {
 
       const community = new Community({
         verification: verification || false,
-        tags: Array.isArray(tags) ? tags.filter(tag => tag && tag.trim()) : [],
+        tags: Array.isArray(tags) ? tags.filter((tag) => tag && tag.trim()) : [],
         name: name.trim(),
         slug: slug,
         description: description || '',
@@ -65,6 +65,38 @@ class CommunityController {
     } catch (e) {
       console.log(e);
       res.status(500).json({ message: 'Create community error' });
+    }
+  }
+
+  async updateCommunity(req, res) {
+    try {
+      const { slug } = req.params;
+      const { name, description, isPublic, coverImage, avatar, tags, verification } = req.body;
+
+      const currentCommunity = await Community.findOne({ slug: slug });
+
+      if (!currentCommunity) {
+        return res.status(404).json({ message: 'Community not found' });
+      }
+
+      if (name !== undefined) currentCommunity.name = name;
+      if (description !== undefined) currentCommunity.description = description;
+      if (isPublic !== undefined) currentCommunity.isPublic = isPublic;
+      if (coverImage !== undefined) currentCommunity.coverImage = coverImage;
+      if (avatar !== undefined) currentCommunity.avatar = avatar;
+      if (tags !== undefined) currentCommunity.tags = tags;
+      if (verification !== undefined) currentCommunity.verification = verification;
+
+  
+      await currentCommunity.save();
+
+      res.json({
+        message: 'Community updated successfully',
+        community: currentCommunity
+      });
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ message: 'Update community error' });
     }
   }
 
@@ -114,9 +146,7 @@ class CommunityController {
 
   async getAllCommunities(req, res) {
     try {
-      const communities = await Community.find({})
-        .populate('creator', 'userName avatar')
-        .sort({ membersCount: -1 });
+      const communities = await Community.find({}).populate('creator', 'userName avatar').sort({ membersCount: -1 });
 
       return res.json({
         communities: communities,

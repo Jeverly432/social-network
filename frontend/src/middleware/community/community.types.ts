@@ -19,3 +19,10 @@ export interface IPostCreateCommunity {
   categories: string[]
   privacy: number
 }
+
+export interface IPostUpdateCommunity {
+  name?: string
+  description?: string
+  categories?: string[]
+  privacy?: number
+}
