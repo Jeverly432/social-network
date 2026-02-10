@@ -8,7 +8,8 @@
   &.primary {
     background-color: $primary;
     color: $base_inverse;
-    border: $primary;
+    border-color: $primary;
+
 
     &:hover {
       background-color: $base_inverse !important;

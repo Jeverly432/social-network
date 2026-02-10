@@ -1,0 +1,112 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.modal {
+  :global {
+    .ant-modal {
+      width: 1000px !important;
+    }
+
+    .ant-modal-container {
+      padding: 0px !important;
+      border-radius: 10px !important;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.form {
+  width: 45%;
+  padding-left: 88px;
+  padding-right: 81px;
+  padding-top: 180px;
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: $secondary;
+  }
+
+  p {
+    color: $secondary;
+    font-weight: 500;
+    font-size: 16px;
+  }
+}
+
+.error {
+  margin-bottom: 0;
+}
+
+.banner {
+  width: 55%;
+  position: relative;
+}
+
+.image {
+  user-select: none;
+  pointer-events: none;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+}
+
+.button {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 100px;
+
+  span {
+    color: $secondary;
+    font-size: 16px;
+  }
+}
+
+.people {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+.title {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  p {
+    color: white;
+    font-size: 60px;
+    font-weight: 700;
+    user-select: none;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  span {
+    color: white;
+    font-size: 32px;
+    line-height: 32px;
+    font-weight: 500;
+    user-select: none;
+    pointer-events: none;
+  }
+}

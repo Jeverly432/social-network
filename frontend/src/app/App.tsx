@@ -1,9 +1,11 @@
-import { ErrorBoundary } from "@entities/common";
+import { AuthModal, ErrorBoundary } from "@entities/common";
 import { getUserAction } from "@middleware/user/user.saga";
 import { Layout } from "@shared/ui";
 import { memo, Suspense, useEffect } from "react"
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
+import { setIsOpen } from "./store/login/login.slice";
+
 
 const App = () => {
   const dispatch = useDispatch();
@@ -12,6 +14,8 @@ const App = () => {
   useEffect(() => {
     if (token) {
       dispatch(getUserAction());
+    } else {
+      dispatch(setIsOpen(true))
     }
   }, [token])
 
@@ -22,6 +26,7 @@ const App = () => {
           <Outlet />
         </Suspense>
       </Layout>
+      <AuthModal />
     </ErrorBoundary>
   )
 }

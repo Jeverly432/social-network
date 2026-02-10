@@ -5,5 +5,6 @@ import { Settings } from "./settings";
 export const Community = {
   Current,
   Create,
-  Settings
+  Settings,
+  
 }
