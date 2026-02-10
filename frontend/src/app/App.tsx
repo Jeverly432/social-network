@@ -4,7 +4,7 @@ import { Layout } from "@shared/ui";
 import { memo, Suspense, useEffect } from "react"
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { setIsOpen } from "./store/login/login.slice";
+import { setIsOpen } from "./store/auth/auth.slice";
 
 
 const App = () => {

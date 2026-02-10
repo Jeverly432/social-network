@@ -6,7 +6,7 @@ import { useEffect, useState, type ChangeEvent } from "react"
 import { postLoginUserAction } from "@middleware/user/user.saga"
 import { Form, Alert } from "antd"
 import { emailRules, passwordRules } from "./LoginModal.data"
-import { setError } from "@app/store/login/login.slice"
+import { setError } from "@app/store/auth/auth.slice"
 
 interface ILoginModal {
   setStateModal: VoidFunction
@@ -16,10 +16,10 @@ export const LoginModal = ({ setStateModal }: ILoginModal) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const isOpen = useSelector((state: RootState) => state.login.isOpen)
+  const isOpen = useSelector((state: RootState) => state.auth.isOpen)
   const [form] = Form.useForm()
-  const isLoading = useSelector((state: RootState) => state.login.isLoading)
-  const error = useSelector((state: RootState) => state.login.error)
+  const isLoading = useSelector((state: RootState) => state.auth.isLoading)
+  const error = useSelector((state: RootState) => state.auth.error)
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -57,14 +57,11 @@ export const LoginModal = ({ setStateModal }: ILoginModal) => {
         Enter your account details
       </p>
       <div className={styles.inputs}>
-      <Form.Item rules={passwordRules} validateTrigger="onBlur" name="name">
-          <Input placeholder="Name" size="s" value={email} onChange={handleEmailChange} />
-        </Form.Item>
         <Form.Item rules={emailRules} validateTrigger="onBlur" name="email">
           <Input placeholder="Email" size="s" value={email} onChange={handleEmailChange} />
         </Form.Item>
         <Form.Item rules={passwordRules} validateTrigger="onBlur" name="password">
-          <Input placeholder="Password" size="s" value={password} onChange={handlePasswordChange} />
+          <Input placeholder="Password" size="s" type="password" value={password} onChange={handlePasswordChange} />
         </Form.Item>
       </div>
       {error && (

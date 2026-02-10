@@ -12,7 +12,7 @@ type ModalState = "login" | "signup"
 
 export const AuthModal = () => {
   const [stateModal, setStateModal] = useState<ModalState>("login")
-  const isOpen = useSelector((state: RootState) => state.login.isOpen)
+  const isOpen = useSelector((state: RootState) => state.auth.isOpen)
 
   return (
     <Modal open={isOpen} wrapClassName={styles.modal} footer={false} closeIcon={false} mask={{ blur: false }} centered={true}>

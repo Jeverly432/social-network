@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit"
-import type { ILoginInitialState } from "./login.types"
+import type { IAuthInitialState } from "./auth.types"
 
-export const loginSliceName = 'login'
+export const authSliceName = 'auth'
 
-const initialState: ILoginInitialState = {
+const initialState: IAuthInitialState = {
   isOpen: false,
   isLoading: false,
   error: null,
 }
 
-const loginSlice = createSlice({
-  name: loginSliceName,
+const authSlice = createSlice({
+  name: authSliceName,
   initialState,
   reducers: {
     setIsOpen: (state, action) => {
@@ -27,5 +27,5 @@ const loginSlice = createSlice({
 
 export const {
   actions: { setIsOpen, setIsLoading, setError },
-  reducer: loginStateReducer
-} = loginSlice;
+  reducer: authStateReducer
+} = authSlice;
