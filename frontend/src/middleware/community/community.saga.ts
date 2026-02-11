@@ -114,6 +114,18 @@ export function* putUpdateCommunity(action: { payload: { slug: string; data: IPo
   }
 }
 
+export function* postLeaveCommunity(action: { payload: { id: string } }) {
+  try {
+    const { id } = action.payload
+    if (id) {
+      const response: AxiosResponse = yield call(() =>
+        http.post(`/${id}/leave`))
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export const postCommunityAvatarAction = createAction<IPostUploadAvatar>(`${communitySliceName}/avatar`)
 export const getCurrentCommunityAction = createAction<{ pathname: string }>(`${communitySliceName}/selected`)
 export const getCommunitiesAction = createAction(`${communitySliceName}/all`)

@@ -157,7 +157,7 @@ const CommunityPage = () => {
             </div>
             <Form.Item className={styles.formItem}>
               <Button variant="primary" htmlType="submit" loading={isLoading}>
-                <Icons.Community.Create.Plus /> Save
+                 Save
               </Button>
             </Form.Item>
           </div>

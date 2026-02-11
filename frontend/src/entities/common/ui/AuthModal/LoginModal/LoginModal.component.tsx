@@ -5,7 +5,7 @@ import styles from "../AuthModal.module.scss"
 import { useEffect, useState, type ChangeEvent } from "react"
 import { postLoginUserAction } from "@middleware/user/user.saga"
 import { Form, Alert } from "antd"
-import { emailRules, passwordRules } from "./LoginModal.data"
+import { passwordRules } from "./LoginModal.data"
 import { setError } from "@app/store/auth/auth.slice"
 
 interface ILoginModal {
@@ -57,7 +57,7 @@ export const LoginModal = ({ setStateModal }: ILoginModal) => {
         Enter your account details
       </p>
       <div className={styles.inputs}>
-        <Form.Item rules={emailRules} validateTrigger="onBlur" name="email">
+        <Form.Item validateTrigger="onBlur" name="email">
           <Input placeholder="Email" size="s" value={email} onChange={handleEmailChange} />
         </Form.Item>
         <Form.Item rules={passwordRules} validateTrigger="onBlur" name="password">

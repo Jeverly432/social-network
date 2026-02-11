@@ -87,12 +87,11 @@ class CommunityController {
       if (tags !== undefined) currentCommunity.tags = tags;
       if (verification !== undefined) currentCommunity.verification = verification;
 
-  
       await currentCommunity.save();
 
       res.json({
         message: 'Community updated successfully',
-        community: currentCommunity
+        community: currentCommunity,
       });
     } catch (e) {
       console.log(e);

@@ -27,7 +27,7 @@
 
 .content {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   background-color: white;
   border: 1px solid $base_shade4;
   padding: 0px 16px 16px 16px;
@@ -57,8 +57,15 @@
 }
 
 .subtitle {
-  @include typography-title-bold;
+  @include typography-body-bold;
   padding-top: 24px;
+  padding-bottom: 2px;
+}
+
+.description {
+  padding-bottom: 16px;
+  color: $base_shade1;
+  @include typography-caption;
 }
 
 .subList {
@@ -173,4 +180,62 @@
 .skeleton {
   user-select: none;
   pointer-events: none;
+}
+
+.radio {
+  padding: 0 !important;
+  gap: 0 !important;
+
+  :global {
+    .ant-radio-wrapper {
+      margin-right: 0;
+      flex-direction: row-reverse;
+      padding: 16px 0;
+
+      .ant-radio-label {
+        width: 100%;
+        padding-left: 0;
+      }
+
+      .ant-radio {
+        width: 20px !important;
+        height: 20px !important;
+
+        .ant-radio-inner {
+          width: 20px;
+          height: 20px;
+          border-color: $base_shade3;
+        }
+
+        &.ant-radio-checked {
+          .ant-radio-inner {
+            border-color: $primary !important;
+            background-color: $primary !important;
+
+            &::after {
+              transform: scale(0.5);
+              background-color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.radioItem {
+  @include typography-body;
+}
+
+.form {
+  margin-bottom: 0;
+}
+
+.formItem {
+  margin-bottom: 0 !important;
+}
+
+.button {
+  width: 100%;
+  margin-top: 16px;
 }

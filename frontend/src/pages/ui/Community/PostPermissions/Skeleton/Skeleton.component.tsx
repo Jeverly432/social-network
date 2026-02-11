@@ -5,7 +5,7 @@ import cn from "classnames"
 
 export const Skeleton = () => {
   return (
-    <div className={cn(communityStyles.wrapper, communityStyles.skeleton)}>
+    <div className={cn(communityStyles.wrapper,communityStyles.skeleton)}>
       <div className={communityStyles.head}>
         <BaseSkeleton
           width={24}

@@ -3,7 +3,7 @@ import { memo, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useNavigate } from "react-router-dom"
 import type { RootState } from "@app/store/root.types"
-import styles from "./Commnuity.module.scss"
+import styles from "./Community.module.scss"
 import { Icons } from "@shared/assets"
 import { Skeleton } from "./Skeleton/Skeleton.component"
 
@@ -50,7 +50,7 @@ const Community = () => {
               Basic info
             </h3>
             <ul className={styles.subList}>
-              <li className={styles.subItem} onClick={()=> navigate('profile-edit')}>
+              <li className={styles.subItem} onClick={() => navigate('profile-edit')}>
                 <div>
                   <span>
                     <Icons.Community.Settings.Pen />
@@ -61,7 +61,7 @@ const Community = () => {
                   <Icons.Community.Create.ArrowBack className={styles.back} />
                 </button>
               </li>
-              <li className={styles.subItem}>
+              {/* <li className={styles.subItem}>
                 <div>
                   <span>
                     <Icons.Community.Settings.Members />
@@ -71,25 +71,14 @@ const Community = () => {
                 <button>
                   <Icons.Community.Create.ArrowBack className={styles.back} />
                 </button>
-              </li>
+              </li> */}
             </ul>
           </li>
           <li className={styles.item}>
-            <h3 className={styles.subtitle}>
+        {/*     <h3 className={styles.subtitle}>
               Community permissions
-            </h3>
-            <ul className={styles.subList}>
-              <li className={styles.subItem}>
-                <div>
-                  <span>
-                    <Icons.Community.Settings.Post />
-                  </span>
-                  Post permissions
-                </div>
-                <button>
-                  <Icons.Community.Create.ArrowBack className={styles.back} />
-                </button>
-              </li>
+            </h3> */}
+           {/*  <ul className={styles.subList}>
               <li className={styles.subItem}>
                 <div>
                   <span>
@@ -101,17 +90,17 @@ const Community = () => {
                   <Icons.Community.Create.ArrowBack className={styles.back} />
                 </button>
               </li>
-            </ul>
+            </ul> */}
           </li>
           <li className={styles.item}>
             <div className={styles.leave}>
               <button >Leave community</button>
             </div>
           </li>
-          <li className={styles.lastItem}>
+        {/*   <li className={styles.buttonItem}>
             <button>Close community</button>
             <p>Closing this community will remove the community  page and all its content and comments. </p>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>
