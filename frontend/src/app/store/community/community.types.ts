@@ -31,6 +31,5 @@ export interface ICommunityInitialState {
     current: boolean
     avatar: boolean
   }
-
   error: string | null
 }

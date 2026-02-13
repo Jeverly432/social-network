@@ -5,8 +5,6 @@ import { memo, Suspense, useEffect } from "react"
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { setIsOpen } from "./store/auth/auth.slice";
-import { showNotification } from "./store/notification/notification.slice";
-
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,15 +18,9 @@ const App = () => {
     }
   }, [token])
 
-
-  const handleShow = () => {
-    dispatch(showNotification({ description: "dawdwa", title: "dawdwa", type: "error" }))
-  }
-
   return (
     <ErrorBoundary>
       <Layout>
-        <button onClick={handleShow}>dwada</button>
         <Suspense fallback={<></>}>
           <Outlet />
         </Suspense>

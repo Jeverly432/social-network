@@ -1,4 +1,4 @@
-import { getCurrentCommunityAction } from "@middleware/community/community.saga"
+import { getCurrentCommunityAction, postLeaveCommunityAction } from "@middleware/community/community.saga"
 import { memo, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useNavigate } from "react-router-dom"
@@ -31,6 +31,12 @@ const Community = () => {
 
   if (isLoading) {
     return <Skeleton />
+  }
+
+  const handleLeave = () => {
+    if (currentCommunity) {
+      dispatch(postLeaveCommunityAction({ id: currentCommunity._id }))
+    }
   }
 
   return (
@@ -75,10 +81,10 @@ const Community = () => {
             </ul>
           </li>
           <li className={styles.item}>
-        {/*     <h3 className={styles.subtitle}>
+            {/*     <h3 className={styles.subtitle}>
               Community permissions
             </h3> */}
-           {/*  <ul className={styles.subList}>
+            {/*  <ul className={styles.subList}>
               <li className={styles.subItem}>
                 <div>
                   <span>
@@ -92,12 +98,12 @@ const Community = () => {
               </li>
             </ul> */}
           </li>
-          <li className={styles.item}>
+          <li className={styles.item} onClick={handleLeave}>
             <div className={styles.leave}>
               <button >Leave community</button>
             </div>
           </li>
-        {/*   <li className={styles.buttonItem}>
+          {/*   <li className={styles.buttonItem}>
             <button>Close community</button>
             <p>Closing this community will remove the community  page and all its content and comments. </p>
           </li> */}

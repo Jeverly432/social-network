@@ -7,8 +7,7 @@ import Background from "@shared/assets/images/image/login.webp"
 import People from "@shared/assets/images/image/people.webp"
 import type { RootState } from "@app/store/root.types"
 import { useSelector } from "react-redux"
-
-type ModalState = "login" | "signup"
+import type { ModalState } from "./AuthModal.types"
 
 export const AuthModal = () => {
   const [stateModal, setStateModal] = useState<ModalState>("login")

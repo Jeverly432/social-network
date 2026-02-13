@@ -8,6 +8,6 @@ export interface INotificationInitialState {
 
 export interface INotification {
   type: NotificationType
-  description: string
+  description?: string
   title: string
 }

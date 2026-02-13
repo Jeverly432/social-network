@@ -5,6 +5,7 @@ import type { AxiosResponse } from "axios";
 import { call, put, takeEvery } from "redux-saga/effects";
 import type { IAvatarResponse, IPostCreateCommunity, IPostUpdateCommunity, IPostUploadAvatar, IResponseCommunities } from "./community.types";
 import type { ICommunityState } from "@app/store/community/community.types";
+import { showNotification } from "@app/store/notification/notification.slice";
 
 export function* getCommunitiesSaga() {
   try {
@@ -119,10 +120,13 @@ export function* postLeaveCommunity(action: { payload: { id: string } }) {
     const { id } = action.payload
     if (id) {
       const response: AxiosResponse = yield call(() =>
-        http.post(`/${id}/leave`))
+        http.post(`community/${id}/leave`))
+      yield put(showNotification({ type: "error", title: response.data.message }))
     }
-  } catch (e) {
+  } catch (e: any) {
     console.log(e)
+    const errorMessage = e.response?.data?.message || "Something went wrong"
+    yield put(showNotification({ type: "error", title: errorMessage }))
   }
 }
 
@@ -131,6 +135,7 @@ export const getCurrentCommunityAction = createAction<{ pathname: string }>(`${c
 export const getCommunitiesAction = createAction(`${communitySliceName}/all`)
 export const postCreateCommunityAction = createAction<IPostCreateCommunity>(`${communitySliceName}/create`)
 export const putUpdateCommunityAction = createAction<{ slug: string; data: IPostUpdateCommunity }>(`${communitySliceName}/update`)
+export const postLeaveCommunityAction = createAction<{ id: string }>(`${communitySliceName}/leave`)
 
 export function* communitySaga() {
   yield takeEvery(getCommunitiesAction, getCommunitiesSaga)
@@ -138,4 +143,5 @@ export function* communitySaga() {
   yield takeEvery(postCommunityAvatarAction, postUploadAvatar)
   yield takeEvery(postCreateCommunityAction, postCreateCommunity)
   yield takeEvery(putUpdateCommunityAction, putUpdateCommunity)
+  yield takeEvery(postLeaveCommunityAction, postLeaveCommunity)
 }

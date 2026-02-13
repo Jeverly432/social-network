@@ -14,7 +14,7 @@ const notificationSlice = createSlice({
   initialState,
   reducers: {
     showNotification: (state, action: PayloadAction<INotification>) => {
-      state.description = action.payload.description
+      state.description = action.payload.description ?? null
       state.title = action.payload.title
       state.type = action.payload.type
     },

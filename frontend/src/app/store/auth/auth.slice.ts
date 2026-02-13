@@ -6,7 +6,6 @@ export const authSliceName = 'auth'
 const initialState: IAuthInitialState = {
   isOpen: false,
   isLoading: false,
-  error: null,
 }
 
 const authSlice = createSlice({
@@ -19,13 +18,10 @@ const authSlice = createSlice({
     setIsLoading: (state, action) => {
       state.isLoading = action.payload
     },
-    setError: (state, action) => {
-      state.error = action.payload
-    }
   }
 })
 
 export const {
-  actions: { setIsOpen, setIsLoading, setError },
+  actions: { setIsOpen, setIsLoading },
   reducer: authStateReducer
 } = authSlice;

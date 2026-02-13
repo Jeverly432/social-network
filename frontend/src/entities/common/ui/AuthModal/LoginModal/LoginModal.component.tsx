@@ -4,13 +4,9 @@ import { useDispatch, useSelector } from "react-redux"
 import styles from "../AuthModal.module.scss"
 import { useEffect, useState, type ChangeEvent } from "react"
 import { postLoginUserAction } from "@middleware/user/user.saga"
-import { Form, Alert } from "antd"
+import { Form } from "antd"
 import { passwordRules } from "./LoginModal.data"
-import { setError } from "@app/store/auth/auth.slice"
-
-interface ILoginModal {
-  setStateModal: VoidFunction
-}
+import type { ILoginModal } from "./LoginModal.types"
 
 export const LoginModal = ({ setStateModal }: ILoginModal) => {
   const dispatch = useDispatch();
@@ -19,7 +15,6 @@ export const LoginModal = ({ setStateModal }: ILoginModal) => {
   const isOpen = useSelector((state: RootState) => state.auth.isOpen)
   const [form] = Form.useForm()
   const isLoading = useSelector((state: RootState) => state.auth.isLoading)
-  const error = useSelector((state: RootState) => state.auth.error)
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -37,12 +32,7 @@ export const LoginModal = ({ setStateModal }: ILoginModal) => {
   };
 
   useEffect(() => {
-    console.log(isLoading)
-  }, [isLoading])
-
-  useEffect(() => {
     form.resetFields()
-    dispatch(setError(null))
   }, [isOpen, dispatch, form])
 
   return (
@@ -64,16 +54,6 @@ export const LoginModal = ({ setStateModal }: ILoginModal) => {
           <Input placeholder="Password" size="s" type="password" value={password} onChange={handlePasswordChange} />
         </Form.Item>
       </div>
-      {error && (
-        <Alert
-          message={error}
-          type="error"
-          showIcon
-          closable
-          onClose={() => dispatch(setError(null))}
-          className={styles.error}
-        />
-      )}
       <Form.Item>
         <Button variant="primary" className={styles.button} loading={isLoading} htmlType="submit">
           Login

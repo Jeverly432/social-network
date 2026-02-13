@@ -6,8 +6,9 @@ import { call, put, takeEvery, select } from "redux-saga/effects";
 import { http } from "@shared/lib";
 import type { IResponseLogin, IResponseRegisterUser } from "./user.types";
 import type { IUserState } from "@app/store/user/user.types";
-import { setIsLoading, setError, setIsOpen } from "@app/store/auth/auth.slice";
+import { setIsLoading, setIsOpen } from "@app/store/auth/auth.slice";
 import { getCommunitiesAction } from "@middleware/community/community.saga";
+import { showNotification } from "@app/store/notification/notification.slice";
 
 export const postLoginUserAction = createAction<IResponseLogin>(`${userSliceName}/login`);
 export const postRegisterUserAction = createAction<IResponseRegisterUser>(`${userSliceName}/register`);
@@ -32,11 +33,10 @@ export function* loginUserSaga({ payload }: { payload: IResponseLogin }) {
       yield put(getCommunitiesAction())
     }
     yield put(getUserAction())
-    yield put(setError(null))
     yield put(setIsLoading(false))
   } catch (e: any) {
     const errorMessage = e.response?.data?.message || "An error occurred during login"
-    yield put(setError(errorMessage))
+    yield put(showNotification({ type: "error", title: errorMessage }))
     yield put(setIsLoading(false))
   }
 }
@@ -95,16 +95,16 @@ export function* signUpUserSaga({ payload }: { payload: IResponseRegisterUser })
       })
     )
 
-    yield put(setError(null))
     yield put(setIsLoading(false))
-    
+
     yield put(postLoginUserAction({
       email: payload.email,
       password: payload.password
     }))
+    yield put(showNotification({ type: "success", title: "Register successfully", description: `Hello ${payload.userName}` }))
   } catch (e: any) {
     const errorMessage = e.response?.data?.message || e.response?.data?.errors?.[0]?.msg || "An error occurred during registration"
-    yield put(setError(errorMessage))
+    yield put(showNotification({ type: "error", title: errorMessage }))
     yield put(setIsLoading(false))
   }
 }
