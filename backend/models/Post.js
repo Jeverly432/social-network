@@ -2,7 +2,8 @@ const { Schema, model } = require('mongoose');
 
 const Post = new Schema(
   {
-    content: { type: String, required: true },
+    description: { type: String, required: true },
+    title: { type: String, required: true },
     images: [{ type: String }],
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     community: { type: Schema.Types.ObjectId, ref: 'Community', required: false },

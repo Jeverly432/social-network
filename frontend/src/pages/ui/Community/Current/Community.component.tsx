@@ -6,17 +6,15 @@ import { useParams } from "react-router-dom"
 import styles from "./Community.module.scss"
 import { Skeleton } from "./Skeleton/Skeleton.component"
 import { Head } from "./Head/Head.component"
-import { Post } from "./Post/Post.component"
 import { Icons } from "@shared/assets"
 import { setCreatedCommunity } from "@app/store/community/community.slice"
-
+import { Post } from "@entities/common"
 
 const CommunityPage = () => {
   const { slug } = useParams<{ slug: string }>()
   const isLoading = useSelector((state: RootState) => state.community.isLoading.current)
   const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState('1')
-
 
   useEffect(() => {
     if (slug) {

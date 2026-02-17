@@ -1,5 +1,5 @@
 import { ActionButton, Community, Input, Navigation } from "@shared/ui"
-import { Icons} from "@shared/assets"
+import { Icons } from "@shared/assets"
 import { Link, useLocation, useParams } from "react-router-dom"
 import { data } from "./Sidebar.data"
 import { useDispatch, useSelector } from "react-redux"

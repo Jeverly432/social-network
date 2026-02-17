@@ -1,0 +1,47 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.wrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid $base_shade4;
+  padding-top: 32px;
+  padding-bottom: 64px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    margin-top: 4px;
+    @include typography-title-bold;
+    color: $base_shade3;
+  }
+
+  p {
+    @include typography-caption;
+    color: $base_shade3;
+  }
+
+  button {
+    margin-top: 16px;
+  }
+
+  a {
+    margin-top: 16px;
+    @include typography-body-bold;
+    color: $primary;
+    transition: 0.3s;
+
+    &:hover {
+      color: $primary_shade1;
+    }
+  }
+}

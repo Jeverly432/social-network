@@ -7,15 +7,19 @@ class PostController {
   async createPost(req, res) {
     try {
       const userId = req.user.id;
-      const { content, images, communityId } = req.body;
+      const { title, images, communityId, description } = req.body;
       const currentUser = await User.findById(userId);
 
       if (!currentUser) {
         return res.status(404).json({ message: 'User not found' });
       }
 
-      if (!content) {
-        return res.status(500).json({ message: 'Content is empty' });
+      if (!title) {
+        return res.status(500).json({ message: 'Title is empty' });
+      }
+
+      if (!description) {
+        return res.status(500).json({ message: 'Description is empty' });
       }
 
       let postType = 'user';
@@ -23,6 +27,7 @@ class PostController {
 
       if (communityId) {
         community = await Community.findById(communityId);
+
         if (!community) {
           return res.status(403).json({ message: 'Community not found' });
         }
@@ -34,11 +39,13 @@ class PostController {
             message: 'Only community admins can create posts',
           });
         }
+
         postType = 'community';
       }
 
       const post = new Post({
-        content: content,
+        title: title,
+        description: description,
         images: images || [],
         author: userId,
         community: communityId || null,
@@ -51,6 +58,7 @@ class PostController {
       await post.save();
 
       await User.findByIdAndUpdate(userId, { $inc: { postsCount: 1 } });
+
       if (community) {
         await Community.findByIdAndUpdate(communityId, { $inc: { postsCount: 1 } });
       }
@@ -183,7 +191,7 @@ class PostController {
     try {
       const { id } = req.params;
       const userId = req.user.id;
-      const { content, images } = req.body;
+      const { title, images } = req.body;
 
       const post = await Post.findById(id);
 
@@ -195,8 +203,7 @@ class PostController {
         return res.status(403).json({ message: 'You can only update your own posts' });
       }
 
-   
-      if (content !== undefined) post.content = content;
+      if (title !== undefined) post.title = title;
       if (images !== undefined) post.images = images;
 
       await post.save();

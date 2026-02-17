@@ -6,9 +6,8 @@ import type { RootState } from "@app/store/root.types"
 import styles from "./Community.module.scss"
 import { Icons } from "@shared/assets"
 import { Skeleton } from "./Skeleton/Skeleton.component"
-import { Form, type RadioChangeEvent } from "antd"
+import { Form } from "antd"
 import { Radio as RadioAntd } from 'antd';
-import { Item } from "../ProfileEdit/Radio/Item/Item.component"
 import { Button } from "@shared/ui"
 
 const Community = () => {

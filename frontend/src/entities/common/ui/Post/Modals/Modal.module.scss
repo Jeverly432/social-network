@@ -1,0 +1,110 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.modal {
+  width: 480px !important;
+
+  :global {
+    .ant-modal-container {
+      padding: 0 !important;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  @include typography-headline;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid $base_shade4;
+}
+
+.description {
+  color: $base_shade3;
+  @include typography-body;
+  padding-left: 16px;
+}
+
+.content {
+  padding: 16px 24px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  cursor: pointer;
+
+  div {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    @include typography-body-bold;
+    transition: 0.3s;
+  }
+
+  &:hover {
+    h3 {
+      color: $primary;
+    }
+  }
+}
+
+.input {
+  background-color: unset !important;
+  border: 0px solid;
+  padding: 4px 0 !important;
+  height: 24px !important;
+
+  &::placeholder {
+    @include typography-title-bold;
+    color: $base_shade3;
+  }
+}
+
+.textarea {
+  border: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  outline: unset !important;
+  box-shadow: unset !important;
+
+  &::placeholder {
+    @include typography-body;
+    color: $base_shade3;
+  }
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.files {
+  display: flex;
+  gap: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.formItem {
+  margin-bottom: 0 !important;
+}
+
+.button {
+  width: 100%;
+  margin-top: 16px;
+}
