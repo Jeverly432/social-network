@@ -7,7 +7,7 @@ class PostController {
   async createPost(req, res) {
     try {
       const userId = req.user.id;
-      const { title, images, communityId, description } = req.body;
+      const { title, communityId, description, images } = req.body;
       const currentUser = await User.findById(userId);
 
       if (!currentUser) {
@@ -60,7 +60,10 @@ class PostController {
       await User.findByIdAndUpdate(userId, { $inc: { postsCount: 1 } });
 
       if (community) {
-        await Community.findByIdAndUpdate(communityId, { $inc: { postsCount: 1 } });
+        await Community.findByIdAndUpdate(communityId, { 
+          $inc: { postsCount: 1 },
+          $push: { posts: post._id }
+        });
       }
 
       const createdPost = await Post.findById(post._id)
@@ -175,7 +178,10 @@ class PostController {
       await User.findByIdAndUpdate(userId, { $inc: { postsCount: -1 } });
 
       if (post.community) {
-        await Community.findByIdAndUpdate(post.community, { $inc: { postsCount: -1 } });
+        await Community.findByIdAndUpdate(post.community, { 
+          $inc: { postsCount: -1 },
+          $pull: { posts: post._id }
+        });
       }
 
       return res.json({

@@ -32,12 +32,7 @@ const CommunityPage = () => {
   }
 
   const handleSubmit = async (values: IPostCreateCommunity) => {
-    try {
-      console.log('Form values:', values)
-      console.log('Avatar file:', avatarFile)
-      dispatch(postCreateCommunityAction(values))
-    } catch (error) {
-    }
+    dispatch(postCreateCommunityAction(values))
   }
 
   useEffect(() => {
@@ -51,7 +46,6 @@ const CommunityPage = () => {
       }
     }
   }, [community, isLoading, avatarFile, dispatch, navigate])
-
 
   useEffect(() => {
     if (community && !isLoading && avatarFile) {

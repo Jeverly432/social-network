@@ -20,8 +20,8 @@ const postSlice = createSlice({
   name: postSliceName,
   initialState,
   reducers: {
-    setIsLoading: (state, action: PayloadAction<IPostInitialState>) => {
-      state.isLoading = action.payload.isLoading
+    setIsLoading: (state, action: PayloadAction<{ value: boolean }>) => {
+      state.isLoading = action.payload.value
     },
     setCommunity: (state, action: PayloadAction<IPostInitialState>) => {
       state.description = action.payload.description

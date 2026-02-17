@@ -1,41 +1,61 @@
 import { useEffect, useState } from "react"
 import styles from "./Modal.module.scss"
 import { ActionButton, Button, Input, Modal } from "@shared/ui"
-import { Input as AntInput, Form } from "antd"
+import { Input as AntInput, Form, Tooltip } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 import type { RootState } from "@app/store/root.types"
 import { Icons } from "@shared/assets"
 import type { IModals } from './Modal.types'
+import { postPostAction } from "@middleware/post/post.saga"
 
 const { TextArea } = AntInput;
 
 export const Modals = ({ isOpen, setIsOpen }: IModals) => {
   const [step, setStep] = useState<number>(1)
+  const [selectedCommunityId, setSelectedCommunityId] = useState<string | null>(null)
   const myCommunities = useSelector((state: RootState) => state.community.communities)
   const post = useSelector((state: RootState) => state.post)
   const dispatch = useDispatch()
   const [form] = Form.useForm()
-  const [coverImages, setCoverImages] = useState<string[] | []>([])
+  const [images, setImages] = useState<File[] | []>([])
+
 
   useEffect(() => {
-    form.resetFields()
-  }, [])
+    if (!isOpen) {
+      form.resetFields()
+      setImages([])
+      setSelectedCommunityId(null)
+    }
+  }, [isOpen, form])
 
   useEffect(() => {
-/*     if (myCommunities && !post.isLoading) {
-      form.setFieldsValue({
-        name: currentCommunity.name,
-        description: currentCommunity.description,
-        categories: currentCommunity.tags,
-        privacy: currentCommunity.isPublic ? 1 : 2
-      })
-      setCoverImage(currentCommunity.coverImage)
-    } */
-  }, [myCommunities, post.isLoading, form])
-
-  useEffect(() => {
-    setStep(1)
+    setStep(0)
   }, [setIsOpen])
+
+  const handleSubmit = (values: { title: string; description: string }) => {
+    dispatch(postPostAction({
+      communityId: selectedCommunityId || null,
+      title: values.title || "",
+      description: values.description || "",
+      images: images
+    }))
+
+  }
+
+  const handleNextStep = (id: string) => {
+    setStep(1)
+    setSelectedCommunityId(id)
+  }
+
+
+  const handleImageButtonClick = () => {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = 'image/*'
+    input.multiple = true
+    /*     input.onchange = handleImageChange */
+    input.click()
+  }
 
   const getContent = (step: number) => {
     switch (step) {
@@ -51,7 +71,7 @@ export const Modals = ({ isOpen, setIsOpen }: IModals) => {
               </span>
               <ul className={styles.list}>
                 {myCommunities.list.map((community) => (
-                  <li className={styles.item} onClick={() => setStep(1)}>
+                  <li className={styles.item} onClick={() => handleNextStep(community._id)}>
                     <div>
                       <img src={community.coverImage} alt={community.name} />
                     </div>
@@ -72,12 +92,22 @@ export const Modals = ({ isOpen, setIsOpen }: IModals) => {
             <h2 className={styles.title}>
               All about plants
             </h2>
-            <Form className={styles.content}>
+            <Form className={styles.content} form={form} onFinish={handleSubmit}>
               <div className={styles.inputs}>
-                <Form.Item className={styles.formItem}>
-                  <Input className={styles.input} placeholder="What's the key of this post" />
+                <Form.Item
+                  className={styles.formItem}
+                  name="title"
+                  validateTrigger="onBlur"
+                  rules={[{ required: true, message: 'Title is required' }]}
+                >
+                  <Input className={styles.input} placeholder="What's the key of this post" maxLength={30} />
                 </Form.Item>
-                <Form.Item className={styles.formItem}>
+                <Form.Item
+                  className={styles.formItem}
+                  name="description"
+                  validateTrigger="onBlur"
+                  rules={[{ required: true, message: 'Description is required' }]}
+                >
                   <TextArea
                     className={styles.textarea}
                     placeholder="Share the details or context of your post here…"
@@ -86,15 +116,26 @@ export const Modals = ({ isOpen, setIsOpen }: IModals) => {
                 </Form.Item>
               </div>
               <div className={styles.files}>
-                <ActionButton size="m" variant="secondary">
+                <ActionButton
+                  size="m"
+                  variant="secondary"
+                  onClick={handleImageButtonClick}
+                >
                   <Icons.Community.Current.ImageIcon />
                 </ActionButton>
-                <ActionButton size="m" variant="secondary">
-                  <Icons.Community.Current.Play />
-                </ActionButton>
-                <ActionButton size="m" variant="secondary">
-                  <Icons.Community.Current.Pin />
-                </ActionButton>
+                {images.length > 0 && (
+                  <span className={styles.imageCount}>{images.length} image(s)</span>
+                )}
+                <Tooltip placement="top" title="Soon...">
+                  <ActionButton size="m" variant="secondary">
+                    <Icons.Community.Current.Play />
+                  </ActionButton>
+                </Tooltip>
+                <Tooltip placement="top" title="Soon...">
+                  <ActionButton size="m" variant="secondary">
+                    <Icons.Community.Current.Pin />
+                  </ActionButton>
+                </Tooltip>
               </div>
               <Form.Item>
                 <Button className={styles.button} loading={post.isLoading} htmlType="submit">

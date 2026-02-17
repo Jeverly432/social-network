@@ -89,6 +89,33 @@ const uploadCommunityCover = async (req, res) => {
   }
 };
 
+const uploadPostImages = async (req, res) => {
+  try {
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ error: 'No files uploaded' });
+    }
+
+    const uploadPromises = req.files.map((file) =>
+      uploadToCloudinary(file.buffer, 'posts')
+    );
+
+    const results = await Promise.all(uploadPromises);
+
+    const images = results.map((result) => ({
+      imageUrl: result.secure_url,
+      publicId: result.public_id,
+    }));
+
+    res.json({
+      images: images,
+      imageUrls: images.map((img) => img.imageUrl),
+    });
+  } catch (error) {
+    console.error('Upload error:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
 const uploadImage = async (req, res) => {
   try {
     if (!req.file) {
@@ -113,5 +140,6 @@ module.exports = {
   uploadUserAvatar,
   uploadCommunityAvatar,
   uploadCommunityCover,
+  uploadPostImages,
   uploadImage,
 };
