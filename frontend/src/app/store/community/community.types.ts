@@ -32,4 +32,5 @@ export interface ICommunityInitialState {
     avatar: boolean
   }
   error: string | null
+  posts: IPostState[]
 }

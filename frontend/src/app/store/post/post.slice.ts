@@ -13,7 +13,8 @@ const initialState: IPostInitialState = {
   community: null,
   likes: [],
   likesCount: null,
-  type: null
+  type: null,
+  _id: null
 }
 
 const postSlice = createSlice({

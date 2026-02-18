@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { ICommunityInitialState, ICommunityState } from './community.types';
+import type { IPostState } from '../post/post.types';
 
 export const communitySliceName = "community"
 
@@ -15,6 +16,7 @@ const initialState: ICommunityInitialState = {
     current: false,
     avatar: false
   },
+  posts: [],
   error: null,
 }
 
@@ -36,12 +38,14 @@ const communitySlice = createSlice({
     },
     setCreatedCommunity: (state, action: PayloadAction<ICommunityState | null>) => {
       state.communities.created = action.payload
+    },
+    setPosts: (state, action: PayloadAction<IPostState[]>) => {
+      state.posts = action.payload
     }
   }
 })
 
-
 export const {
-  actions: { setCommunitiesList, setCurrentCommunity, setIsLoading, setUploadAvatar, setCreatedCommunity },
+  actions: { setCommunitiesList, setCurrentCommunity, setIsLoading, setUploadAvatar, setCreatedCommunity, setPosts },
   reducer: communityStateReducer
 } = communitySlice

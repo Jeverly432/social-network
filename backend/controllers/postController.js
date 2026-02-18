@@ -68,7 +68,7 @@ class PostController {
 
       const createdPost = await Post.findById(post._id)
         .populate('author', 'userName avatar')
-        .populate('community', 'name avatar');
+        .populate('community', 'name avatar coverImage');
 
       return res.json(createdPost);
     } catch (e) {
@@ -81,7 +81,7 @@ class PostController {
     try {
       const { id } = req.params;
 
-      const post = await Post.findById(id).populate('author', 'userName avatar').populate('community', 'name avatar');
+      const post = await Post.findById(id).populate('author', 'userName avatar').populate('community', 'name avatar coverImage');
 
       if (!post) {
         return res.status(404).json({ message: 'Post not found' });
@@ -120,7 +120,7 @@ class PostController {
         ],
       })
         .populate('author', 'userName avatar')
-        .populate('community', 'name avatar')
+        .populate('community', 'name avatar coverImage')
         .sort({ createdAt: -1 });
 
       return res.json({
@@ -216,7 +216,7 @@ class PostController {
 
       const updatedPost = await Post.findById(id)
         .populate('author', 'userName avatar')
-        .populate('community', 'name avatar');
+        .populate('community', 'name avatar coverImage');
 
       return res.json(updatedPost);
     } catch (e) {

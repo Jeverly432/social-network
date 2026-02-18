@@ -285,7 +285,7 @@ class CommunityController {
         type: 'community',
       })
         .populate('author', 'userName avatar')
-        .populate('community', 'name slug avatar')
+        .populate('community', 'name slug avatar coverImage')
         .sort({ createdAt: -1 });
 
       return res.json({

@@ -4,13 +4,8 @@ import { createAction } from "@reduxjs/toolkit";
 import { http } from "@shared/lib";
 import type { AxiosResponse } from "axios"
 import { call, put, takeEvery } from "redux-saga/effects";
-
-interface IPostPost {
-  communityId: string | null,
-  description: string,
-  title: string,
-  images: File[]
-}
+import type { IPostPost, IResponsePosts } from "./post.types";
+import { setPosts } from "@app/store/community/community.slice";
 
 export function* postUploadImages(action: { payload: { files: File[] } }) {
   try {
@@ -41,8 +36,7 @@ export function* postPost(action: { payload: IPostPost }) {
   try {
     yield put(setIsLoading({ value: true }))
     const { communityId, description, title, images } = action.payload
-    
-    // Загружаем изображения, если они есть
+
     let imageUrls: string[] = []
     if (images && images.length > 0) {
       const formData = new FormData();
@@ -54,8 +48,7 @@ export function* postPost(action: { payload: IPostPost }) {
       )
       imageUrls = uploadResponse.data.imageUrls || []
     }
-    
-    // Создаем пост с загруженными изображениями
+
     const response: AxiosResponse = yield call(() =>
       http.post(`/posts/create`, {
         title: title,
@@ -76,8 +69,29 @@ export function* postPost(action: { payload: IPostPost }) {
   }
 }
 
+export function* getPosts() {
+  try {
+    yield put(setIsLoading({ value: true }))
+    const response: AxiosResponse<IResponsePosts> = yield call(() =>
+      http.get('/posts/all')
+    )
+
+    if (response.data) {
+      yield put(setPosts(response.data.posts))
+      yield put(setIsLoading({ value: false }))
+    }
+  } catch (e: any) {
+    console.log(e)
+    const errorMessage = e.response?.data?.message || "Something went wrong"
+    yield put(showNotification({ type: "error", title: errorMessage }))
+    yield put(setIsLoading({ value: false }))
+  }
+}
+
+export const getPostsAction = createAction(`${postSliceName}/all`)
 export const postPostAction = createAction<IPostPost>(`${postSliceName}/create`)
 
 export function* postSaga() {
   yield takeEvery(postPostAction, postPost)
+  yield takeEvery(getPostsAction, getPosts)
 }

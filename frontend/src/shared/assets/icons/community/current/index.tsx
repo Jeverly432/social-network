@@ -6,6 +6,7 @@ import { ImageIcon } from "./Image"
 import { New } from "./New"
 import { Pin } from "./Pin"
 import { Play } from "./Play"
+import { Verification } from "./Verification"
 
 export const Current = {
   ImageIcon,
@@ -14,5 +15,6 @@ export const Current = {
   Chart,
   New,
   Arrow,
-  Create
+  Create,
+  Verification
 }

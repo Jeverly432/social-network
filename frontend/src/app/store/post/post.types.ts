@@ -12,8 +12,10 @@ export interface IPostState {
   community: ICommunityState | null
   likes: IUserState[] | []
   likesCount: number | null
+  updatedAt: string | null
   commentsCount: number | null
   type: PostType | null
+  _id: string | null
 }
 
 export interface IPostInitialState extends IPostState {

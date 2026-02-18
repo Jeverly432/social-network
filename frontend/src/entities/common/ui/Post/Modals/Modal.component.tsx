@@ -19,7 +19,6 @@ export const Modals = ({ isOpen, setIsOpen }: IModals) => {
   const [form] = Form.useForm()
   const [images, setImages] = useState<File[] | []>([])
 
-
   useEffect(() => {
     if (!isOpen) {
       form.resetFields()
@@ -39,7 +38,6 @@ export const Modals = ({ isOpen, setIsOpen }: IModals) => {
       description: values.description || "",
       images: images
     }))
-
   }
 
   const handleNextStep = (id: string) => {
@@ -47,13 +45,17 @@ export const Modals = ({ isOpen, setIsOpen }: IModals) => {
     setSelectedCommunityId(id)
   }
 
-
   const handleImageButtonClick = () => {
     const input = document.createElement('input')
     input.type = 'file'
     input.accept = 'image/*'
     input.multiple = true
-    /*     input.onchange = handleImageChange */
+    input.onchange = (event: Event) => {
+      const target = event.target as HTMLInputElement
+      if (target.files) {
+        setImages(Array.from(target.files))
+      }
+    }
     input.click()
   }
 

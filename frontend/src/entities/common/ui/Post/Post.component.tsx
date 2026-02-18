@@ -9,7 +9,7 @@ import { Modals } from "./Modals/Modal.component"
 
 export const Post = () => {
   const user = useSelector((state: RootState) => state.user.user)
-  const [postModal, setPostModal] = useState<boolean>(true)
+  const [postModal, setPostModal] = useState<boolean>(false)
 
   return (
     <>

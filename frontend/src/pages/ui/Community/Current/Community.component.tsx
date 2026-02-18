@@ -9,12 +9,18 @@ import { Head } from "./Head/Head.component"
 import { Icons } from "@shared/assets"
 import { setCreatedCommunity } from "@app/store/community/community.slice"
 import { Post } from "@entities/common"
+import { getPostsAction } from "@middleware/post/post.saga"
+import { Posts } from "./Posts/Posts.component"
 
 const CommunityPage = () => {
   const { slug } = useParams<{ slug: string }>()
   const isLoading = useSelector((state: RootState) => state.community.isLoading.current)
   const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState('1')
+
+  useEffect(() => {
+    dispatch(getPostsAction())
+  }, [])
 
   useEffect(() => {
     if (slug) {
@@ -51,7 +57,12 @@ const CommunityPage = () => {
   const renderTabContent = () => {
     switch (activeTab) {
       case '1':
-        return <Post />
+        return (
+          <>
+            <Post />
+            <Posts />
+          </>
+        )
       case '2':
         return <div>Pinned content</div>
       case '3':
