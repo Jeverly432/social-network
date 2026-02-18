@@ -88,10 +88,32 @@ export function* getPosts() {
   }
 }
 
+export function* deletePost(action: { payload: { id: string } }) {
+  try {
+    const { id } = action.payload
+    yield put(setIsLoading({ value: true }))
+    const response: AxiosResponse = yield call(() =>
+      http.delete(`/posts/delete/${id}`)
+    )
+    if (response.data) {
+      yield put(showNotification({ type: "success", title: "Post deleted" }))
+      yield put(getPostsAction())
+      yield put(setIsLoading({ value: false }))
+    }
+  } catch (e: any) {
+    console.log(e)
+    const errorMessage = e.response?.data?.message || "Something went wrong"
+    yield put(showNotification({ type: "error", title: errorMessage }))
+    yield put(setIsLoading({ value: false }))
+  }
+}
+
 export const getPostsAction = createAction(`${postSliceName}/all`)
 export const postPostAction = createAction<IPostPost>(`${postSliceName}/create`)
+export const deletePostAction = createAction<{ id: string }>(`${postSliceName}/delete`)
 
 export function* postSaga() {
   yield takeEvery(postPostAction, postPost)
   yield takeEvery(getPostsAction, getPosts)
+  yield takeEvery(deletePostAction, deletePost)
 }

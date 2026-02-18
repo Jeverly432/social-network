@@ -14,7 +14,8 @@ const initialState: IPostInitialState = {
   likes: [],
   likesCount: null,
   type: null,
-  _id: null
+  _id: null,
+  updatedAt: null
 }
 
 const postSlice = createSlice({
