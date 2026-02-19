@@ -9,11 +9,11 @@ import type { IUserState } from "@app/store/user/user.types";
 import { setIsLoading, setIsOpen } from "@app/store/auth/auth.slice";
 import { getCommunitiesAction } from "@middleware/community/community.saga";
 import { showNotification } from "@app/store/notification/notification.slice";
+import Cookies from "universal-cookie";
 
-export const postLoginUserAction = createAction<IResponseLogin>(`${userSliceName}/login`);
-export const postRegisterUserAction = createAction<IResponseRegisterUser>(`${userSliceName}/register`);
-export const getUserAction = createAction(`${userSliceName}/get`);
-export const logoutUserAction = createAction(`${userSliceName}/logout`);
+
+const cookies = new Cookies();
+const twentyFourHoursInSeconds = 24 * 60 * 60;
 
 export function* loginUserSaga({ payload }: { payload: IResponseLogin }) {
   try {
@@ -26,12 +26,15 @@ export function* loginUserSaga({ payload }: { payload: IResponseLogin }) {
     )
 
     yield put(setToken(response.data.token))
-    localStorage.setItem("token", response.data.token)
-    localStorage.setItem("tokenTimestamp", Date.now().toString())
+    cookies.set("token", response.data.token, {
+      maxAge: twentyFourHoursInSeconds
+    });
+
     if (response.data.token) {
       yield put(setIsOpen(false))
       yield put(getCommunitiesAction())
     }
+
     yield put(getUserAction())
     yield put(setIsLoading(false))
   } catch (e: any) {
@@ -44,24 +47,11 @@ export function* loginUserSaga({ payload }: { payload: IResponseLogin }) {
 export function* getUserSaga() {
   try {
     const tokenFromStore: string | null = yield select((state: any) => state.user.token);
-    const token = tokenFromStore || localStorage.getItem('token');
-
+    const token = tokenFromStore || cookies.get('token');
+    console.log(token)
     if (!token) {
       console.log('No token found');
       return;
-    }
-
-    const tokenTimestamp = localStorage.getItem('tokenTimestamp');
-    if (tokenTimestamp) {
-      const tokenAge = Date.now() - parseInt(tokenTimestamp, 10);
-      const twentyFourHours = 24 * 60 * 60 * 1000;
-
-      if (tokenAge > twentyFourHours) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('tokenTimestamp');
-        yield put(clearUser());
-        return;
-      }
     }
 
     if (!tokenFromStore && token) {
@@ -108,6 +98,11 @@ export function* signUpUserSaga({ payload }: { payload: IResponseRegisterUser })
     yield put(setIsLoading(false))
   }
 }
+
+export const postLoginUserAction = createAction<IResponseLogin>(`${userSliceName}/login`);
+export const postRegisterUserAction = createAction<IResponseRegisterUser>(`${userSliceName}/register`);
+export const getUserAction = createAction(`${userSliceName}/get`);
+export const logoutUserAction = createAction(`${userSliceName}/logout`);
 
 export function* userSaga() {
   yield takeEvery(postLoginUserAction, loginUserSaga);

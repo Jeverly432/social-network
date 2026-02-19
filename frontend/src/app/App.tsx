@@ -5,10 +5,12 @@ import { memo, Suspense, useEffect } from "react"
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { setIsOpen } from "./store/auth/auth.slice";
+import { Cookies } from "react-cookie";
 
 const App = () => {
+  const cookies = new Cookies();
   const dispatch = useDispatch();
-  const token = localStorage.getItem('token');
+  const token = cookies.get('token');
 
   useEffect(() => {
     if (token) {
