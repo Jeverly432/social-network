@@ -20,4 +20,5 @@ export interface IPostState {
 
 export interface IPostInitialState extends IPostState {
   isLoading: boolean
+  modalOpen: boolean
 }

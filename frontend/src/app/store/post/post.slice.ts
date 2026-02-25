@@ -5,6 +5,7 @@ export const postSliceName = 'post'
 
 const initialState: IPostInitialState = {
   isLoading: false,
+  modalOpen: false,
   title: null,
   description: null,
   images: [],
@@ -29,11 +30,14 @@ const postSlice = createSlice({
       state.description = action.payload.description
       state.title = action.payload.title
       state.images = action.payload.images
+    },
+    setModalOpen: (state, action: PayloadAction<boolean>) => {
+      state.modalOpen = action.payload
     }
   }
 })
 
 export const {
-  actions: { setCommunity, setIsLoading },
+  actions: { setCommunity, setIsLoading, setModalOpen },
   reducer: postStateReducer
 } = postSlice

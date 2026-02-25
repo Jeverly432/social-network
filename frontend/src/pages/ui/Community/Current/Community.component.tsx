@@ -17,6 +17,8 @@ const CommunityPage = () => {
   const isLoading = useSelector((state: RootState) => state.community.isLoading.current)
   const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState('1')
+  const community = useSelector((state: RootState) => state.community.communities.current)
+  const [selectedPost, setSelectedPost] = useState<string>("")
 
   useEffect(() => {
     dispatch(getPostsAction())
@@ -30,6 +32,10 @@ const CommunityPage = () => {
       dispatch(setCreatedCommunity(null))
     }
   }, [dispatch, slug])
+
+  const handleModalClose = () => {
+    setSelectedPost("")
+  }
 
   if (isLoading) {
     return <Skeleton />
@@ -59,8 +65,8 @@ const CommunityPage = () => {
       case '1':
         return (
           <>
-            <Post />
-            <Posts />
+            <Post step={1} communityId={community?._id || null} postId={selectedPost} onModalClose={handleModalClose} />
+            <Posts setSelectedPost={setSelectedPost} />
           </>
         )
       case '2':

@@ -11,10 +11,11 @@ const Post = new Schema(
     likesCount: { type: Number, default: 0 },
     commentsCount: { type: Number, default: 0 },
     type: { type: String, enum: ['user', 'community'], default: 'user' },
+    comments: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   },
   {
     timestamps: true,
   },
 );
 
-module.exports = model('Post', Post)
+module.exports = model('Post', Post);

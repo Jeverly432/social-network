@@ -1,5 +1,5 @@
 import { showNotification } from "@app/store/notification/notification.slice";
-import { postSliceName, setIsLoading } from "@app/store/post/post.slice";
+import { postSliceName, setIsLoading, setModalOpen } from "@app/store/post/post.slice";
 import { createAction } from "@reduxjs/toolkit";
 import { http } from "@shared/lib";
 import type { AxiosResponse } from "axios"
@@ -59,7 +59,9 @@ export function* postPost(action: { payload: IPostPost }) {
     )
     if (response.data) {
       yield put(setIsLoading({ value: false }))
+      yield put(setModalOpen(false))
       yield put(showNotification({ type: "success", title: "Post created successfully" }))
+      yield put(getPostsAction())
     }
   } catch (e: any) {
     console.log(e)
@@ -88,12 +90,12 @@ export function* getPosts() {
   }
 }
 
-export function* deletePost(action: { payload: { id: string } }) {
+export function* deletePost(action: { payload: string }) {
   try {
-    const { id } = action.payload
+    const { payload } = action
     yield put(setIsLoading({ value: true }))
     const response: AxiosResponse = yield call(() =>
-      http.delete(`/posts/delete/${id}`)
+      http.delete(`/posts/delete/${payload}`)
     )
     if (response.data) {
       yield put(showNotification({ type: "success", title: "Post deleted" }))
@@ -108,12 +110,54 @@ export function* deletePost(action: { payload: { id: string } }) {
   }
 }
 
+export function* putPost(action: { payload: { id: string } }) {
+  try {
+    const { id } = action.payload
+    const response: AxiosResponse = yield call(() =>
+      http.put(`/posts/update/${id}`)
+    )
+
+    if (response.data) {
+      yield put(showNotification({ type: "success", title: "Post updated" }))
+    }
+
+  } catch (e: any) {
+    console.log(e)
+    const errorMessage = e.response?.data?.message || "Something went wrong"
+    yield put(showNotification({ type: "error", title: errorMessage }))
+    yield put(setIsLoading({ value: false }))
+  }
+}
+
+export function* getPost(action: { payload: { id: string } }) {
+  try {
+    const { id } = action.payload
+    const response: AxiosResponse = yield call(() =>
+      http.get(`/posts/get/${id}`)
+    )
+
+    if (response.data) {
+
+    }
+
+  } catch (e: any) {
+    console.log(e)
+    const errorMessage = e.response?.data?.message || "Something went wrong"
+    yield put(showNotification({ type: "error", title: errorMessage }))
+    yield put(setIsLoading({ value: false }))
+  }
+}
+
 export const getPostsAction = createAction(`${postSliceName}/all`)
 export const postPostAction = createAction<IPostPost>(`${postSliceName}/create`)
-export const deletePostAction = createAction<{ id: string }>(`${postSliceName}/delete`)
+export const deletePostAction = createAction<string>(`${postSliceName}/delete`)
+export const putPostAction = createAction<{ id: string }>(`${postSliceName}/update`)
+export const getPostAction = createAction<{ id: string }>(`${postSliceName}/get`)
 
 export function* postSaga() {
   yield takeEvery(postPostAction, postPost)
   yield takeEvery(getPostsAction, getPosts)
   yield takeEvery(deletePostAction, deletePost)
+  yield takeEvery(putPostAction, putPost)
+  yield takeEvery(getPostAction, getPost)
 }

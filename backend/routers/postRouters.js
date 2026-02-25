@@ -10,5 +10,6 @@ router.get('/all', authMiddleware, postController.getPosts);
 router.get('/user/:userName', authMiddleware, postController.getUserPosts);
 router.delete('/delete/:id', authMiddleware, postController.deletePost);
 router.put('/update/:id', authMiddleware, postController.updatePost);
+router.put('/like/:id', authMiddleware, postController.likePost);
 
 module.exports = router;

@@ -60,9 +60,9 @@ class PostController {
       await User.findByIdAndUpdate(userId, { $inc: { postsCount: 1 } });
 
       if (community) {
-        await Community.findByIdAndUpdate(communityId, { 
+        await Community.findByIdAndUpdate(communityId, {
           $inc: { postsCount: 1 },
-          $push: { posts: post._id }
+          $push: { posts: post._id },
         });
       }
 
@@ -81,7 +81,9 @@ class PostController {
     try {
       const { id } = req.params;
 
-      const post = await Post.findById(id).populate('author', 'userName avatar').populate('community', 'name avatar coverImage');
+      const post = await Post.findById(id)
+        .populate('author', 'userName avatar')
+        .populate('community', 'name avatar coverImage');
 
       if (!post) {
         return res.status(404).json({ message: 'Post not found' });
@@ -178,9 +180,9 @@ class PostController {
       await User.findByIdAndUpdate(userId, { $inc: { postsCount: -1 } });
 
       if (post.community) {
-        await Community.findByIdAndUpdate(post.community, { 
+        await Community.findByIdAndUpdate(post.community, {
           $inc: { postsCount: -1 },
-          $pull: { posts: post._id }
+          $pull: { posts: post._id },
         });
       }
 
@@ -222,6 +224,44 @@ class PostController {
     } catch (e) {
       console.log(e);
       res.status(500).json({ message: 'Update post error' });
+    }
+  }
+
+  async likePost(req, res) {
+    try {
+      const { id } = req.params;
+      const userId = req.user.id;
+
+      const post = await Post.findById(id);
+
+      if (!post) {
+        return res.status(404).json({ message: 'Post not found' });
+      }
+
+      const hasLiked = post.likes.some(
+        (likeId) => likeId.toString() === userId.toString()
+      );
+
+      if (hasLiked) {
+        await Post.findByIdAndUpdate(id, {
+          $pull: { likes: userId },
+          $inc: { likesCount: -1 },
+        });
+      } else {
+        await Post.findByIdAndUpdate(id, {
+          $push: { likes: userId },
+          $inc: { likesCount: 1 },
+        });
+      }
+
+      const updatedPost = await Post.findById(id)
+        .populate('author', 'userName avatar')
+        .populate('community', 'name avatar coverImage');
+
+      return res.json(updatedPost);
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ message: 'Like post error' });
     }
   }
 }

@@ -10,14 +10,27 @@ import { postPostAction } from "@middleware/post/post.saga"
 
 const { TextArea } = AntInput;
 
-export const Modals = ({ isOpen, setIsOpen }: IModals) => {
-  const [step, setStep] = useState<number>(1)
-  const [selectedCommunityId, setSelectedCommunityId] = useState<string | null>(null)
+export const Modals = ({ isOpen, setIsOpen, stepCount, communityId = null, postId = null }: IModals) => {
+  const [step, setStep] = useState<number>(stepCount)
+  const [selectedCommunityId, setSelectedCommunityId] = useState<string | null>(communityId)
   const myCommunities = useSelector((state: RootState) => state.community.communities)
   const post = useSelector((state: RootState) => state.post)
   const dispatch = useDispatch()
   const [form] = Form.useForm()
   const [images, setImages] = useState<File[] | []>([])
+  const posts = useSelector((state: RootState) => state.community.posts)
+
+  useEffect(() => {
+    if (postId) {
+      const currentPost = posts.find((post) => post._id === postId)
+      if (currentPost) {
+        form.setFieldsValue({
+          title: currentPost.title,
+          description: currentPost.description
+        })
+      }
+    }
+  }, [postId])
 
   useEffect(() => {
     if (!isOpen) {
@@ -28,7 +41,11 @@ export const Modals = ({ isOpen, setIsOpen }: IModals) => {
   }, [isOpen, form])
 
   useEffect(() => {
-    setStep(0)
+    if (!stepCount) {
+      setStep(0)
+    } else {
+      setStep(stepCount)
+    }
   }, [setIsOpen])
 
   const handleSubmit = (values: { title: string; description: string }) => {
@@ -126,7 +143,7 @@ export const Modals = ({ isOpen, setIsOpen }: IModals) => {
                   <Icons.Community.Current.ImageIcon />
                 </ActionButton>
                 {images.length > 0 && (
-                  <span className={styles.imageCount}>{images.length} image(s)</span>
+                  <span className={styles.imageCount}>{images.length} image</span>
                 )}
                 <Tooltip placement="top" title="Soon...">
                   <ActionButton size="m" variant="secondary">

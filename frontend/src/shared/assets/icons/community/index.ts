@@ -6,5 +6,4 @@ export const Community = {
   Current,
   Create,
   Settings,
-  
 }
