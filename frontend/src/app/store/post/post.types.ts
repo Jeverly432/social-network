@@ -5,17 +5,17 @@ import type { IUserState } from '../user/user.types';
 type PostType = 'user' | 'community'
 
 export interface IPostState {
-  title: string | null
-  description: string | null
-  images: string[] | []
-  author: IUserState | null
-  community: ICommunityState | null
-  likes: IUserState[] | []
-  likesCount: number | null
-  updatedAt: string | null
-  commentsCount: number | null
-  type: PostType | null
-  _id: string | null
+  title: string 
+  description: string
+  images: string[]
+  author: IUserState 
+  community: ICommunityState
+  likes: string[] | []
+  likesCount: number 
+  updatedAt: string
+  commentsCount: number 
+  type: PostType 
+  _id: string
 }
 
 export interface IPostInitialState extends IPostState {

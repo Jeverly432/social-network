@@ -191,7 +191,7 @@
   cursor: pointer;
   @include typography-body-bold;
   transition: 0.3s;
-  
+
   &:hover {
     color: $base_shade1;
   }
@@ -221,5 +221,13 @@
 
   &:hover {
     color: $base_shade1;
+  }
+}
+
+.active {
+  color: $base;
+
+  &:hover {
+    color: $base;
   }
 }

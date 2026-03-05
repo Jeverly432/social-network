@@ -135,9 +135,23 @@ export function* getPost(action: { payload: { id: string } }) {
     const response: AxiosResponse = yield call(() =>
       http.get(`/posts/get/${id}`)
     )
+  } catch (e: any) {
+    console.log(e)
+    const errorMessage = e.response?.data?.message || "Something went wrong"
+    yield put(showNotification({ type: "error", title: errorMessage }))
+    yield put(setIsLoading({ value: false }))
+  }
+}
 
+export function* likePost(action: { payload: string }) {
+  try {
+    const { payload } = action
+
+    const response: AxiosResponse = yield call(() =>
+      http.put(`posts/like/${payload}`)
+    )
     if (response.data) {
-
+      
     }
 
   } catch (e: any) {
@@ -148,11 +162,13 @@ export function* getPost(action: { payload: { id: string } }) {
   }
 }
 
+
 export const getPostsAction = createAction(`${postSliceName}/all`)
 export const postPostAction = createAction<IPostPost>(`${postSliceName}/create`)
 export const deletePostAction = createAction<string>(`${postSliceName}/delete`)
 export const putPostAction = createAction<{ id: string }>(`${postSliceName}/update`)
 export const getPostAction = createAction<{ id: string }>(`${postSliceName}/get`)
+export const putLikePostAction = createAction<string>(`${postSliceName}/put`)
 
 export function* postSaga() {
   yield takeEvery(postPostAction, postPost)
@@ -160,4 +176,5 @@ export function* postSaga() {
   yield takeEvery(deletePostAction, deletePost)
   yield takeEvery(putPostAction, putPost)
   yield takeEvery(getPostAction, getPost)
+  yield takeEvery(putLikePostAction, likePost)
 }

@@ -33,6 +33,10 @@ export const routes = createBrowserRouter([
           {
             path: ":slug/settings/post-permissions",
             element: <CommunityPostPermissions />
+          },
+          {
+            path: ":slug/post/:id",
+            element: <CommunityPostPermissions />
           }
         ]
       },
