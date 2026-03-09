@@ -8,3 +8,5 @@ export const CommunityCreatePage = safeLazy(() => import('@pages/ui/Community/Cr
 export const CommunitySettings = safeLazy(() => import('@pages/ui/Community/Settings/Community.component'))
 export const CommunityProfileEdit = safeLazy(() => import('@pages/ui/Community/ProfileEdit/Community.component'))
 export const CommunityPostPermissions = safeLazy(()=> import('@pages/ui/Community/PostPermissions/Community.component'))
+export const CommunityPostCurrent = safeLazy(() => import('@pages/ui/Community/Post/Post.component'))
+export const ProfileCurrentPage = safeLazy(() => import('@pages/ui/Profile/Current/Profile.component'))

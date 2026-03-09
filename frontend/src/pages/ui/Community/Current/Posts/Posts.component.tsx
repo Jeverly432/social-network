@@ -6,7 +6,7 @@ import type { IPosts } from "./Posts.types"
 import { Post } from "./Post/Post.component"
 import { Fragment } from "react/jsx-runtime"
 
-export const Posts = ({ setSelectedPost }: IPosts) => {
+export const Posts = ({ setSelectedPost, userName }: IPosts) => {
   const posts = useSelector((state: RootState) => state.community.posts)
   const isLoading = useSelector((state: RootState) => state.post.isLoading)
 
@@ -24,7 +24,7 @@ export const Posts = ({ setSelectedPost }: IPosts) => {
     <div className={styles.wrapper}>
       {posts.map((post) => (
         <Fragment key={post._id}>
-          <Post post={post} setSelectedPost={setSelectedPost} />
+          <Post post={post} setSelectedPost={setSelectedPost} userName={userName} />
         </Fragment>
       ))}
     </div >

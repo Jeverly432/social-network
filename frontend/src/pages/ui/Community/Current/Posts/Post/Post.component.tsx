@@ -12,7 +12,7 @@ import { useState } from "react"
 import { getLike } from "./Post.data"
 import { useNavigate } from "react-router-dom"
 
-export const Post = ({ post, setSelectedPost }: IPost) => {
+export const Post = ({ post, setSelectedPost, userName }: IPost) => {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.user.user)
   const [hasLike, setHasLike] = useState<boolean | undefined>(getLike(user && user._id, post.likes))
@@ -21,7 +21,7 @@ export const Post = ({ post, setSelectedPost }: IPost) => {
   const navigation = useNavigate()
 
   const handlePostDelete = (id: string) => {
-    dispatch(deletePostAction(id))
+    dispatch(deletePostAction(userName ? { id, userName } : { id }))
   }
 
   const handlePostEdit = (id: string) => {
@@ -37,9 +37,12 @@ export const Post = ({ post, setSelectedPost }: IPost) => {
 
   const handleCopy = async (id: string) => {
     try {
-      await navigator.clipboard.writeText(`${url}/community/${post.community?.slug}/post/${id}`);
+      const link = post.community
+        ? `${url}/community/${post.community.slug}/post/${id}`
+        : `${url}/profile/post/${id}`
+      await navigator.clipboard.writeText(link)
     } catch (err) {
-      console.error('Ошибка:', err);
+      console.error('Ошибка:', err)
     }
   }
 
@@ -65,12 +68,14 @@ export const Post = ({ post, setSelectedPost }: IPost) => {
           </div>
           <div className={styles.head}>
             <h3>
-              {user?.userName}
+              {(post.author as { userName?: string })?.userName ?? user?.userName}
             </h3>
             <div className={styles.nameWrapper}>
-              <div className={styles.moderator}>
-                <Icons.Community.Current.Verification /> Moderator
-              </div>
+              {post.community && (
+                <div className={styles.moderator}>
+                  <Icons.Community.Current.Verification /> Moderator
+                </div>
+              )}
               <div className={styles.date}>
                 •
                 {post.updatedAt && formatTimeAgo(post.updatedAt)}

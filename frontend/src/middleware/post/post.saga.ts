@@ -3,7 +3,7 @@ import { postSliceName, setIsLoading, setModalOpen } from "@app/store/post/post.
 import { createAction } from "@reduxjs/toolkit";
 import { http } from "@shared/lib";
 import type { AxiosResponse } from "axios"
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, select, takeEvery } from "redux-saga/effects";
 import type { IPostPost, IResponsePosts } from "./post.types";
 import { setPosts } from "@app/store/community/community.slice";
 
@@ -61,7 +61,14 @@ export function* postPost(action: { payload: IPostPost }) {
       yield put(setIsLoading({ value: false }))
       yield put(setModalOpen(false))
       yield put(showNotification({ type: "success", title: "Post created successfully" }))
-      yield put(getPostsAction())
+      if (communityId) {
+        yield put(getPostsAction())
+      } else {
+        const user: { userName?: string } | null = yield select((state: { user: { user: { userName?: string } | null } }) => state.user.user)
+        if (user?.userName) {
+          yield put(getUserPostsAction(user.userName))
+        }
+      }
     }
   } catch (e: any) {
     console.log(e)
@@ -90,16 +97,40 @@ export function* getPosts() {
   }
 }
 
-export function* deletePost(action: { payload: string }) {
+export function* getUserPosts(action: { payload: string }) {
   try {
-    const { payload } = action
+    const userName = action.payload
+    yield put(setIsLoading({ value: true }))
+    const response: AxiosResponse<IResponsePosts> = yield call(() =>
+      http.get(`/posts/user/${userName}`)
+    )
+
+    if (response.data) {
+      yield put(setPosts(response.data.posts))
+      yield put(setIsLoading({ value: false }))
+    }
+  } catch (e: any) {
+    console.log(e)
+    const errorMessage = e.response?.data?.message || "Something went wrong"
+    yield put(showNotification({ type: "error", title: errorMessage }))
+    yield put(setIsLoading({ value: false }))
+  }
+}
+
+export function* deletePost(action: { payload: { id: string; userName?: string } }) {
+  try {
+    const { id, userName } = action.payload
     yield put(setIsLoading({ value: true }))
     const response: AxiosResponse = yield call(() =>
-      http.delete(`/posts/delete/${payload}`)
+      http.delete(`/posts/delete/${id}`)
     )
     if (response.data) {
       yield put(showNotification({ type: "success", title: "Post deleted" }))
-      yield put(getPostsAction())
+      if (userName) {
+        yield put(getUserPostsAction(userName))
+      } else {
+        yield put(getPostsAction())
+      }
       yield put(setIsLoading({ value: false }))
     }
   } catch (e: any) {
@@ -132,9 +163,7 @@ export function* putPost(action: { payload: { id: string } }) {
 export function* getPost(action: { payload: { id: string } }) {
   try {
     const { id } = action.payload
-    const response: AxiosResponse = yield call(() =>
-      http.get(`/posts/get/${id}`)
-    )
+    yield call(() => http.get(`/posts/get/${id}`))
   } catch (e: any) {
     console.log(e)
     const errorMessage = e.response?.data?.message || "Something went wrong"
@@ -164,8 +193,9 @@ export function* likePost(action: { payload: string }) {
 
 
 export const getPostsAction = createAction(`${postSliceName}/all`)
+export const getUserPostsAction = createAction<string>(`${postSliceName}/user`)
 export const postPostAction = createAction<IPostPost>(`${postSliceName}/create`)
-export const deletePostAction = createAction<string>(`${postSliceName}/delete`)
+export const deletePostAction = createAction<{ id: string; userName?: string }>(`${postSliceName}/delete`)
 export const putPostAction = createAction<{ id: string }>(`${postSliceName}/update`)
 export const getPostAction = createAction<{ id: string }>(`${postSliceName}/get`)
 export const putLikePostAction = createAction<string>(`${postSliceName}/put`)
@@ -173,6 +203,7 @@ export const putLikePostAction = createAction<string>(`${postSliceName}/put`)
 export function* postSaga() {
   yield takeEvery(postPostAction, postPost)
   yield takeEvery(getPostsAction, getPosts)
+  yield takeEvery(getUserPostsAction, getUserPosts)
   yield takeEvery(deletePostAction, deletePost)
   yield takeEvery(putPostAction, putPost)
   yield takeEvery(getPostAction, getPost)

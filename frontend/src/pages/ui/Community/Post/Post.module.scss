@@ -1,0 +1,174 @@
+@use '@shared/styles/colors' as *;
+@use '@shared/styles/typography' as *;
+@use '@shared/styles/fonts' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 28px auto;
+  max-width: 546px;
+  width: 100%;
+  background-color: white;
+  border: 1px solid $base_shade4;
+  padding: 20px 16px;
+  height: fit-content;
+  border-radius: 8px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.title {
+  margin: 0 auto;
+  @include typography-headline;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+
+.back {
+  color: $base_shade1;
+  transform: rotate(180deg);
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    /*     border-bottom: 1px solid $base_shade4; */
+  }
+}
+
+.subtitle {
+  @include typography-title-bold;
+  padding-top: 24px;
+}
+
+.subList {
+  display: flex;
+  flex-direction: column;
+}
+
+.subItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 16px 0;
+  cursor: pointer;
+
+  svg {
+    transition: 0.3s;
+  }
+
+  div {
+    transition: 0.3s;
+  }
+
+  &:hover {
+    svg {
+      color: $primary;
+    }
+
+    div {
+      color: $primary;
+    }
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    @include typography-body;
+    gap: 12px;
+  }
+
+  button {
+    width: 24px;
+    height: 24px;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    background-color: $base_shade4;
+    color: $base;
+    border-radius: 4px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.action {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.leave {
+  button {
+    display: flex;
+    align-items: start;
+    color: $alert;
+    transition: 0.3s;
+    padding: 16px 0;
+    width: 100%;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}
+
+.lastItem {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 2px;
+
+  button {
+    align-items: start;
+    display: flex;
+    color: $alert;
+    transition: 0.3s;
+    padding: 16px 0 0 0;
+    width: 100%;
+    @include typography-body-bold;
+  }
+
+  p {
+    color: $base_shade1;
+    @include typography-caption;
+  }
+
+  &:hover {
+    button {
+      color: $primary;
+    }
+  }
+}
+
+.skeleton {
+  user-select: none;
+  pointer-events: none;
+}

@@ -5,20 +5,14 @@ const authMiddleware = require('../middleware/authMiddleware');
 const uploadMiddleware = require('../middleware/uploadMiddleware');
 const uploadMultipleMiddleware = require('../middleware/uploadMultipleMiddleware');
 
-// POST /upload/avatar - загрузка аватара пользователя
 router.post('/avatar', authMiddleware, uploadMiddleware, uploadController.uploadUserAvatar);
 
-// POST /upload/community/:communityId/avatar - загрузка аватара сообщества
 router.post('/community/:communityId/avatar', authMiddleware, uploadMiddleware, uploadController.uploadCommunityAvatar);
 
-// POST /upload/community/:communityId/cover - загрузка обложки сообщества
 router.post('/community/:communityId/cover', authMiddleware, uploadMiddleware, uploadController.uploadCommunityCover);
 
-// POST /upload/posts - загрузка массива изображений для поста (возвращает массив URL, можно загрузить от 1 до 10 изображений)
 router.post('/posts', authMiddleware, uploadMultipleMiddleware, uploadController.uploadPostImages);
 
-// POST /upload - универсальная загрузка (только возвращает URL)
 router.post('/', authMiddleware, uploadMiddleware, uploadController.uploadImage);
 
 module.exports = router;
-

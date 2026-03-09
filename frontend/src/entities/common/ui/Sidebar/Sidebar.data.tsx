@@ -1,7 +1,13 @@
 import { Routes } from "@app/routes/root.types";
-import {Icons } from "@shared/assets";
+import { Icons } from "@shared/assets";
 
 export const data = [
+  {
+    title: "Profile",
+    image: <></>,
+    key: "profile",
+    link: Routes.Profile,
+  },
   {
     title: "News",
     image: <Icons.UI.NewsFeed />,

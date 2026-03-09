@@ -1,7 +1,7 @@
 import App from "@app/App";
 import { createBrowserRouter } from "react-router-dom";
 import { Routes } from "./root.types";
-import { HomePage, ExplorePage, CommunityPage, CommunityCreatePage, CommunitySettings, CommunityProfileEdit, CommunityPostPermissions } from "./root.lazy";
+import { HomePage, ExplorePage, CommunityPage, CommunityCreatePage, CommunitySettings, CommunityProfileEdit, CommunityPostPermissions, CommunityPostCurrent, ProfileCurrentPage} from "./root.lazy";
 
 export const routes = createBrowserRouter([
   {
@@ -36,13 +36,17 @@ export const routes = createBrowserRouter([
           },
           {
             path: ":slug/post/:id",
-            element: <CommunityPostPermissions />
+            element: <CommunityPostCurrent />
           }
         ]
       },
       {
         path: Routes.Explore,
         element: <ExplorePage />
+      },
+      {
+        path: Routes.Profile,
+        element: <ProfileCurrentPage />
       }
     ]
   }

@@ -6,11 +6,11 @@ import { useParams } from "react-router-dom"
 import styles from "./Community.module.scss"
 import { Skeleton } from "./Skeleton/Skeleton.component"
 import { Head } from "./Head/Head.component"
-import { Icons } from "@shared/assets"
 import { setCreatedCommunity } from "@app/store/community/community.slice"
 import { Post } from "@entities/common"
 import { getPostsAction } from "@middleware/post/post.saga"
 import { Posts } from "./Posts/Posts.component"
+import { items } from "./Community.data"
 
 const CommunityPage = () => {
   const { slug } = useParams<{ slug: string }>()
@@ -40,25 +40,6 @@ const CommunityPage = () => {
   if (isLoading) {
     return <Skeleton />
   }
-
-  const items = [
-    {
-      key: '1',
-      label: <Icons.UI.Tabs.Posts />
-    },
-    {
-      key: '2',
-      label: <Icons.UI.Tabs.Pinned />
-    },
-    {
-      key: '3',
-      label: <Icons.UI.Tabs.Gallery />
-    },
-    {
-      key: '4',
-      label: <Icons.UI.Tabs.Video />
-    }
-  ]
 
   const renderTabContent = () => {
     switch (activeTab) {

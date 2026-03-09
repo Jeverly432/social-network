@@ -7,7 +7,7 @@ const HomePage = () => {
   return (
     <div className={styles.wrapper}>
       <Stories />
-      <Post />
+      <Post step={0} communityId={null} postId={null} />
       <Empty />
     </div>
   )
